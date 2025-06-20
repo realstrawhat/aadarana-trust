@@ -56,7 +56,7 @@ export default function DonateSection() {
       {/* Right Side */}
       <div className="flex-1 flex flex-col gap-6 max-w-xl">
         <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900">Every child deserves a life of security and opportunity..</h3>
-        <p className="text-lg text-gray-700">Let's build that future—together</p>
+        <p className="text-lg text-gray-700">Let&apos;s build that future—together</p>
         <div className="w-full flex flex-col md:flex-row gap-6 mt-8 justify-center items-stretch">
           {[{
             label: "1 Dollar",
@@ -67,7 +67,7 @@ export default function DonateSection() {
           }, {
             label: "1 Day",
             desc: "Of safety, learning, and love"
-          }].map((item, idx) => (
+          }].map((item) => (
             <div
               key={item.label}
               className="bg-purple-600 text-white font-bold border-2 border-purple-600 flex flex-col justify-center items-center flex-1 min-w-[180px] max-w-[220px] min-h-[200px] text-center shadow-lg text-xl md:text-2xl uppercase tracking-wide select-none transition-all duration-200 hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-600 mx-auto md:mx-0"

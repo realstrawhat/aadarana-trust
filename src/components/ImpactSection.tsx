@@ -18,7 +18,7 @@ export default function ImpactSection() {
             They dream again.<br/>
             They learn.<br/>
             They grow into citizens who give back.<br/>
-            This isn't just about charity. It's about transformation.<br/>
+            This isn&apos;t just about charity. It&apos;s about transformation.<br/>
             Every meal shared, every book opened, every blanket provided—it all adds up to a life no longer defined by fear or neglect.
           </p>
           <div className="flex justify-center md:justify-start">

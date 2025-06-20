@@ -72,7 +72,7 @@ export default function WhyChildrenHomePage() {
         <section className="w-full py-20 flex flex-col items-center bg-white px-4">
           <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-purple-600">Orphaned Children Deserve More Than Survival—They Deserve a Future</h2>
           <p className="max-w-3xl text-xl md:text-2xl text-center text-gray-700 font-semibold leading-relaxed">
-            Every child deserves more than just survival—they deserve a future filled with hope, care, and opportunity. Millions of children in India face unimaginable challenges, but together, we can change their story. Education is the key that unlocks confidence, breaks the cycle of poverty, and empowers children to dream beyond their circumstances. At Aadarana Trust, we believe that with a safe home, quality education, and a loving environment, every child can thrive and become a force for positive change. The future we dream of for these children is not just possible—it's within our reach.
+            Every child deserves more than just survival—they deserve a future filled with hope, care, and opportunity. Millions of children in India face unimaginable challenges, but together, we can change their story. Education is the key that unlocks confidence, breaks the cycle of poverty, and empowers children to dream beyond their circumstances. At Aadarana Trust, we believe that with a safe home, quality education, and a loving environment, every child can thrive and become a force for positive change. The future we dream of for these children is not just possible—it&apos;s within our reach.
           </p>
         </section>
         {/* Carousel + Facts Section */}
@@ -151,7 +151,7 @@ export default function WhyChildrenHomePage() {
         <section className="relative w-full py-40 flex items-center justify-center bg-gradient-to-br from-purple-700 via-purple-900 to-purple-700">
           <div className="absolute inset-0 bg-black/60 z-10" aria-hidden="true" />
           <blockquote className="relative z-20 max-w-4xl mx-auto text-center text-white text-4xl md:text-6xl font-semibold italic px-8 py-20">
-            "…if you love until it hurts, there will be no more hurt and only love."<br />
+            &quot;…if you love until it hurts, there will be no more hurt and only love.&quot;<br />
             <span className="block mt-10 text-2xl font-normal not-italic opacity-80">— Mother Theresa</span>
           </blockquote>
         </section>
