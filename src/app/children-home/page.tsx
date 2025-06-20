@@ -93,30 +93,4 @@ export default function ChildrenHomePage() {
       <Footer />
     </main>
   );
-}
-
-function AccordionRow({ item, idx }: { item: { title: string; content: string }; idx: number }) {
-  const [open, setOpen] = React.useState(false);
-  return (
-    <div className="border-b border-gray-200">
-      <button
-        className="flex justify-between items-center w-full py-4 px-2 text-left text-lg font-semibold text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
-        aria-expanded={open}
-        aria-controls={`accordion-content-${idx}`}
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span>{item.title}</span>
-        <svg className={`w-6 h-6 ml-2 transition-transform duration-300 text-purple-500 ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-      </button>
-      <div
-        id={`accordion-content-${idx}`}
-        className={`transition-[max-height] duration-500 ease-in-out overflow-hidden ${open ? 'max-h-40 py-2 px-2' : 'max-h-0 py-0 px-2'}`}
-        aria-hidden={!open}
-      >
-        <div className="text-base text-gray-700 font-normal leading-relaxed">
-          {item.content}
-        </div>
-      </div>
-    </div>
-  );
 } 
