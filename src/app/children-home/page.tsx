@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect, useRef } from 'react';
 import WhySection from '../../components/WhySection';
 import ImpactSection from '../../components/ImpactSection';
