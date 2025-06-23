@@ -6,13 +6,6 @@ import AnimatedText from "../../components/AnimatedText";
 import { useState } from "react";
 import Carousel from '../../components/Carousel';
 
-const facts = [
-  "Millions of children in India are deprived of basic rights like education, healthcare and protection.",
-  "Children from poverty-stricken, broken, or unsafe homes often face neglect, abuse, or are forced into child labor.",
-  "Many come from backgrounds involving street begging, domestic servitude, or are rescued from exploitative environments.",
-  "Girls, especially, suffer from lack of education, hygiene and safety."
-];
-
 const impactInfo = [
   {
     title: "Safety & Shelter",
