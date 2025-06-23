@@ -33,20 +33,21 @@ export default function Navbar() {
       aria-label="Main navigation"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 md:py-4">
-        <Link href="/">
+        <Link href="/" className="flex items-center justify-start mr-4">
           <Image
-            src="/images/logo.webp"
+            src={scrolled ? "/images/hero/Aadarana Logo 2025 (1).png" : "/images/hero/Aadarana Logo 2025 white (1).png"}
             alt="Aadarana Trust Logo"
-            width={48}
-            height={48}
+            width={240}
+            height={240}
             quality={80}
             loading="eager"
             priority={true}
-            sizes="48px"
+            sizes="240px"
+            style={{ maxWidth: '100%', height: 'auto' }}
           />
         </Link>
         <button
-          className="md:hidden p-2"
+          className={`md:hidden p-2 rounded-full transition-colors shadow ${scrolled ? 'bg-white' : 'bg-white'} ${!scrolled ? 'bg-white' : ''}`}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           onClick={() => setMenuOpen((v) => !v)}
         >
@@ -62,7 +63,7 @@ export default function Navbar() {
               {link.name === "Donate Today" ? (
                 <Link
                   href={link.href}
-                  className="ml-2 px-6 py-2 rounded-full bg-gradient-to-r from-purple-600 to-purple-800 text-white font-bold text-lg shadow hover:from-purple-700 hover:to-purple-900 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 flex items-center h-full"
+                  className="ml-2 px-6 py-2 rounded-full bg-gradient-to-r from-[#005FA1] to-[#00395c] text-white font-bold text-lg shadow hover:from-[#00395c] hover:to-[#00395c] transition-all focus:outline-none focus:ring-2 focus:ring-[#005FA1] flex items-center h-full"
                   aria-label={link.name}
                 >
                   {link.name}
@@ -70,7 +71,7 @@ export default function Navbar() {
               ) : (
                 <Link
                   href={link.href}
-                  className="text-lg font-bold text-gray-800 hover:text-purple-700 transition-colors px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 flex items-center h-full"
+                  className={`text-lg font-bold transition-colors px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-[#005FA1] flex items-center h-full ${scrolled ? 'text-gray-800 hover:text-[#00395c]' : 'text-white hover:text-white/80'}`}
                   aria-label={link.name}
                 >
                   {link.name}
@@ -88,7 +89,7 @@ export default function Navbar() {
               {link.name === "Donate Today" ? (
                 <Link
                   href={link.href}
-                  className="block w-full px-5 py-2 rounded-full bg-gradient-to-r from-purple-600 to-purple-800 text-white font-bold shadow hover:from-purple-700 hover:to-purple-900 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 text-center"
+                  className="block w-full px-5 py-2 rounded-full bg-gradient-to-r from-[#005FA1] to-[#00395c] text-white font-bold shadow hover:from-[#00395c] hover:to-[#00395c] transition-all focus:outline-none focus:ring-2 focus:ring-[#005FA1] text-center"
                   aria-label={link.name}
                   onClick={() => setMenuOpen(false)}
                 >
@@ -97,7 +98,7 @@ export default function Navbar() {
               ) : (
                 <Link
                   href={link.href}
-                  className="block text-lg font-semibold text-gray-800 hover:text-purple-700 transition-colors px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 text-center"
+                  className="block text-lg font-semibold text-gray-800 hover:text-[#00395c] transition-colors px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-[#005FA1] text-center"
                   aria-label={link.name}
                   onClick={() => setMenuOpen(false)}
                 >

@@ -53,7 +53,7 @@ export default function AnimatedParticlesBg() {
             height: p.size,
             animation: `moveRight ${p.duration}s linear ${p.delay}s infinite`,
             background:
-              "radial-gradient(hsl(260, 100%, 80%) 0%, hsl(260, 100%, 80%) 40%, transparent 100%)",
+              "radial-gradient(hsl(207, 100%, 80%) 0%, hsl(207, 100%, 80%) 40%, transparent 100%)",
             borderRadius: "50%",
             opacity: 0.7,
             filter: "blur(1.5px)",

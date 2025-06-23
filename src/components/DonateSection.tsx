@@ -12,17 +12,17 @@ export default function DonateSection() {
     <section className="w-full flex flex-col md:flex-row items-center justify-center gap-12 py-20">
       {/* Donate Box */}
       <div className="bg-white rounded-2xl shadow-lg p-10 flex flex-col gap-8 w-full max-w-md md:max-w-lg min-h-[400px] text-lg">
-        <h2 className="text-xl font-bold text-purple-700 mb-2">Donate</h2>
+        <h2 className="text-xl font-bold text-[#005FA1] mb-2">Donate</h2>
         <div className="flex gap-2 mb-4">
           <button
-            className={`px-3 py-1 rounded-full text-sm font-semibold border ${frequency === "monthly" ? "bg-purple-700 text-white" : "bg-gray-100 text-gray-700"}`}
+            className={`px-3 py-1 rounded-full text-sm font-semibold border ${frequency === "monthly" ? "bg-[#005FA1] text-white" : "bg-gray-100 text-gray-700"}`}
             onClick={() => setFrequency("monthly")}
             aria-pressed={frequency === "monthly"}
           >
             Monthly
           </button>
           <button
-            className={`px-3 py-1 rounded-full text-sm font-semibold border ${frequency === "onetime" ? "bg-purple-700 text-white" : "bg-gray-100 text-gray-700"}`}
+            className={`px-3 py-1 rounded-full text-sm font-semibold border ${frequency === "onetime" ? "bg-[#005FA1] text-white" : "bg-gray-100 text-gray-700"}`}
             onClick={() => setFrequency("onetime")}
             aria-pressed={frequency === "onetime"}
           >
@@ -33,7 +33,7 @@ export default function DonateSection() {
           {amounts.map((amt) => (
             <button
               key={amt}
-              className={`px-4 py-2 rounded-lg font-semibold border ${selectedAmount === amt ? "bg-purple-700 text-white" : "bg-gray-100 text-gray-700"}`}
+              className={`px-4 py-2 rounded-lg font-semibold border ${selectedAmount === amt ? "bg-[#005FA1] text-white" : "bg-gray-100 text-gray-700"}`}
               onClick={() => setSelectedAmount(amt)}
               aria-pressed={selectedAmount === amt}
             >
@@ -45,11 +45,11 @@ export default function DonateSection() {
           type="number"
           min={1}
           placeholder="Custom amount"
-          className="w-full px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#005FA1]"
           onChange={e => setSelectedAmount(Number(e.target.value))}
           aria-label="Custom donation amount"
         />
-        <button className="mt-4 bg-purple-700 text-white font-bold py-2 rounded-lg hover:bg-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500">
+        <button className="mt-4 bg-[#005FA1] text-white font-bold py-2 rounded-lg hover:bg-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-[#005FA1]">
           Donate {frequency === "monthly" ? "Monthly" : "Once"} ${selectedAmount}
         </button>
       </div>
@@ -70,7 +70,7 @@ export default function DonateSection() {
           }].map((item) => (
             <div
               key={item.label}
-              className="bg-purple-600 text-white font-bold border-2 border-purple-600 flex flex-col justify-center items-center flex-1 min-w-[180px] max-w-[220px] min-h-[200px] text-center shadow-lg text-xl md:text-2xl uppercase tracking-wide select-none transition-all duration-200 hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-600 mx-auto md:mx-0"
+              className="bg-[#005FA1] text-white font-bold border-2 border-[#005FA1] flex flex-col justify-center items-center flex-1 min-w-[180px] max-w-[220px] min-h-[200px] text-center shadow-lg text-xl md:text-2xl uppercase tracking-wide select-none transition-all duration-200 hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-[#005FA1] mx-auto md:mx-0"
               style={{ borderRadius: 0 }}
             >
               <span className="text-2xl md:text-3xl font-extrabold leading-tight whitespace-nowrap mb-2">{item.label}</span>
