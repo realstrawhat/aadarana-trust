@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import Image from "next/image";
 import AnimatedText from "../../components/AnimatedText";
 import { useState } from "react";
+import Carousel from '../../components/Carousel';
 
 const facts = [
   "Millions of children in India are deprived of basic rights like education, healthcare and protection.",
@@ -77,22 +78,14 @@ export default function WhyChildrenHomePage() {
         </section>
         {/* Carousel + Facts Section */}
         <section className="w-full py-20 bg-gray-50 flex flex-col items-center">
-          <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row gap-12 items-center">
-            <div className="flex-1 w-full mb-8 md:mb-0">
-              {/* Carousel */}
-            </div>
-            <div className="flex-1 w-full flex flex-col gap-6">
-              {facts.map((fact, i) => (
-                <div key={i} className="bg-purple-100 text-purple-800 font-bold rounded-2xl p-6 shadow-lg text-lg md:text-xl">
-                  {fact}
-                </div>
-              ))}
-            </div>
+          <div className="w-full flex justify-center">
+            <Carousel />
           </div>
         </section>
         {/* Expandable Info + Bento Images Section */}
-        <section className="w-full py-24 flex flex-col md:flex-row gap-16 items-center bg-white px-4">
-          <div className="flex-1 flex flex-col gap-6 max-w-2xl w-full">
+        <section className="w-full py-24 flex flex-col md:flex-row gap-16 items-stretch bg-white px-4">
+          {/* Left: Accordion/text */}
+          <div className="flex-1 flex flex-col gap-6 max-w-2xl w-full order-1 md:order-none">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-8 text-purple-600">How Aadarana Changes Lives</h2>
             {impactInfo.map((item, i) => (
               <div key={i} className="mb-2">
@@ -111,16 +104,21 @@ export default function WhyChildrenHomePage() {
               </div>
             ))}
           </div>
-          {/* Bento Images */}
-          <div className="flex-1 grid grid-cols-2 grid-rows-2 gap-6 max-w-lg w-full">
-            <div className="row-span-2 rounded-3xl overflow-hidden shadow-2xl">
-              <Image src="/images/bento1.webp" alt="Bento 1" width={400} height={500} className="object-cover w-full h-full" />
-            </div>
-            <div className="rounded-3xl overflow-hidden shadow-2xl">
-              <Image src="/images/bento2.webp" alt="Bento 2" width={200} height={200} className="object-cover w-full h-full" />
-            </div>
-            <div className="rounded-3xl overflow-hidden shadow-2xl">
-              <Image src="/images/bento3.webp" alt="Bento 3" width={200} height={200} className="object-cover w-full h-full" />
+          {/* Right: Collage */}
+          <div className="flex-1 max-w-3xl w-full flex items-stretch order-2 md:order-none">
+            <div className="grid grid-cols-2 gap-1 md:gap-2 w-full">
+              {/* Left column */}
+              <div className="flex flex-col gap-1 md:gap-2 h-full min-h-0">
+                <div className="bg-gray-300 rounded-2xl w-full flex-1 min-h-0" />
+                <div className="bg-gray-300 rounded-2xl w-full flex-1 min-h-0" />
+                <div className="bg-gray-300 rounded-2xl w-full flex-1 min-h-0" />
+              </div>
+              {/* Right column */}
+              <div className="flex flex-col gap-1 md:gap-2 h-full min-h-0">
+                <div className="bg-gray-200 rounded-2xl w-full" style={{height: '20%'}} />
+                <div className="bg-gray-400 rounded-2xl w-full flex-1 min-h-0" />
+                <div className="bg-gray-300 rounded-2xl w-full" style={{height: '25%'}} />
+              </div>
             </div>
           </div>
         </section>

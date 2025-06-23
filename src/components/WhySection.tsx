@@ -25,11 +25,11 @@ export default function WhySection() {
   return (
     <section className="w-full py-20 flex flex-col items-center bg-white">
       <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-12">Why Children Home</h2>
-      <div className="flex flex-col md:flex-row gap-10 justify-center items-stretch w-full max-w-6xl mb-12">
+      <div className="flex flex-col md:flex-row gap-10 justify-center items-center max-w-6xl mb-12">
         {whyData.map((item, i) => (
           <div
             key={i}
-            className={`flex-1 flex flex-col items-center justify-center rounded-2xl p-10 shadow-xl ${item.color} min-w-[240px] max-w-[340px] min-h-[260px] text-center font-bold`}
+            className={`flex flex-col items-center justify-center rounded-2xl p-10 shadow-xl ${item.color} min-w-[240px] max-w-[340px] min-h-[260px] text-center font-bold mx-auto`}
           >
             <div className="w-32 h-32 mb-8 rounded-full overflow-hidden border-4 border-white shadow">
               <Image
