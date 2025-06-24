@@ -38,10 +38,10 @@ const impactInfo = [
 ];
 
 const impactIcons = [
-  { icon: "/images/icons/A safe, loving home (1).png", text: "A safe, loving home" },
-  { icon: "/images/icons/Better health (1).png", text: "Better health" },
-  { icon: "/images/icons/A hopeful, empowered future (1).png", text: "A hopeful, empowered future" },
-  { icon: "/images/icons/Continued education (1).png", text: "Continued education" }
+  { icon: "/images/icons/A safe, loving home (1).webp", text: "A safe, loving home" },
+  { icon: "/images/icons/Better health (1).webp", text: "Better health" },
+  { icon: "/images/icons/A hopeful, empowered future (1).webp", text: "A hopeful, empowered future" },
+  { icon: "/images/icons/Continued education (1).webp", text: "Continued education" }
 ];
 
 export default function WhyChildrenHomePage() {

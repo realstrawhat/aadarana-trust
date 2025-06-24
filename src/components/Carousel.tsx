@@ -5,11 +5,31 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import { useSwipeable } from 'react-swipeable';
 
 const slides = [
-  { image: '/images/child1.webp', caption: 'Millions of children in India are deprived of basic rights like education, healthcare and protection.' },
-  { image: '/images/child2.webp', caption: 'Children from poverty-stricken, broken, or unsafe homes often face neglect, abuse, or are forced into child labor.' },
-  { image: '/images/child3.webp', caption: 'Many come from backgrounds involving street begging, domestic servitude, or are rescued from exploitative environments.' },
-  { image: '/images/child4.webp', caption: 'Girls, especially, suffer from lack of education, hygiene and safety.' },
-  { image: '/images/child5.webp', caption: 'Millions of children in India are deprived of basic rights like education, healthcare and protection.' },
+  {
+    image: '/images/child1.webp',
+    title: 'Deprived of Basic Rights',
+    description: 'Millions of children in India are deprived of basic rights like education, healthcare, and protection.'
+  },
+  {
+    image: '/images/child2.webp',
+    title: 'Children at Risk',
+    description: 'Children from poverty-stricken, broken, or unsafe homes often face neglect, abuse, or are forced into child labor.'
+  },
+  {
+    image: '/images/child3.webp',
+    title: 'Rescued from Exploitation',
+    description: 'Many come from backgrounds involving street begging, domestic servitude, or are rescued from exploitative environments.'
+  },
+  {
+    image: '/images/child4.webp',
+    title: 'Girls Lack Basic Safety',
+    description: 'Girls, especially, suffer from lack of education, hygiene and safety, making them vulnerable.'
+  },
+  {
+    image: '/images/child5.webp',
+    title: 'Women and girls bear the burden',
+    description: 'They walk an average of four miles each day to collect water—work that keeps them out of school and limits their opportunity.'
+  },
 ];
 
 export default function Carousel() {
@@ -32,26 +52,31 @@ export default function Carousel() {
             style={{ transform: `translateX(-${index * 100}%)` }}
             {...handlers}
           >
-            {slides.map((slide, i) => (
-              <div key={i} className="relative w-full h-72 md:h-[480px] flex-shrink-0">
-                <Image
-                  src={slide.image}
-                  alt={slide.caption}
-                  fill
-                  quality={80}
-                  loading="eager"
-                  sizes="(max-width: 768px) 100vw, 1600px"
-                  className="object-cover object-center"
-                  priority={i === index}
-                />
-                {/* Caption overlay */}
-                <div className="absolute inset-0 flex items-center justify-center z-10">
-                  <div className="bg-white text-gray-900 text-base md:text-2xl font-bold px-6 py-3 rounded-xl shadow-lg border border-gray-200 text-center max-w-[90%]">
-                    {slide.caption}
+            {slides.map((slide, i) => {
+              return (
+                <div key={i} className="relative w-full h-72 md:h-[480px] flex-shrink-0">
+                  <Image
+                    src={slide.image}
+                    alt={slide.title}
+                    fill
+                    quality={80}
+                    loading="eager"
+                    sizes="(max-width: 768px) 100vw, 1600px"
+                    className="object-cover object-center"
+                    priority={i === index}
+                  />
+                  {/* Caption overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <div className="bg-white text-gray-900 rounded-2xl shadow-lg border border-gray-200 flex flex-col items-center justify-center text-center w-56 h-56 md:w-80 md:h-80 px-4 py-4">
+                      <span className="text-lg md:text-2xl font-bold mb-2">{slide.title}</span>
+                      {slide.description && (
+                        <span className="text-sm md:text-lg font-medium opacity-80">{slide.description}</span>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
         {/* Navigation Arrows - hidden on mobile, visible on md+ */}
@@ -75,7 +100,7 @@ export default function Carousel() {
       {/* Dots */}
       <div className="mt-4 flex gap-2 z-20">
         {slides.map((_, i) => (
-          <span key={i} className={`w-3 h-3 rounded-full ${i === index ? "bg-purple-600" : "bg-gray-300"} block transition-colors`} />
+          <span key={i} className={`w-3 h-3 rounded-full ${i === index ? "bg-[#005FA1]" : "bg-gray-300"} block transition-colors`} />
         ))}
       </div>
     </div>

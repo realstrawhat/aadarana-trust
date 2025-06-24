@@ -5,7 +5,7 @@ export default function QuoteSection() {
   return (
     <section className="relative w-full py-16 md:py-28 flex items-center justify-center bg-gray-900 min-h-[400px] md:min-h-[520px]">
       <Image
-        src="/images/home/IMG_4896.JPG"
+        src="/images/home/IMG_4896.webp"
         alt="Background for quote section"
         fill
         quality={80}

@@ -4,7 +4,7 @@ export default function HeroSection() {
   return (
     <section className="relative w-full h-[50vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
       <Image
-        src="/images/home/1-2.jpg"
+        src="/images/home/1-2.webp"
         alt="Aadarana Trust children smiling and playing together in the home courtyard"
         fill
         quality={80}

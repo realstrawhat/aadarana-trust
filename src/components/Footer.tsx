@@ -21,7 +21,7 @@ export default function Footer() {
           {/* Logo at the top */}
           <div className="w-[240px] h-[240px] flex items-center justify-center mb-0">
             <Image
-              src="/images/hero/Aadarana Logo 2025 white (1).png"
+              src="/images/hero/Aadarana Logo 2025 white (1).webp"
               alt="Aadarana Trust Logo"
               width={240}
               height={240}

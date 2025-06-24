@@ -35,7 +35,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 md:py-4">
         <Link href="/" className="flex items-center justify-start mr-4">
           <Image
-            src={scrolled ? "/images/hero/Aadarana Logo 2025 (1).png" : "/images/hero/Aadarana Logo 2025 white (1).png"}
+            src={scrolled ? "/images/hero/Aadarana Logo 2025 (1).webp" : "/images/hero/Aadarana Logo 2025 white (1).webp"}
             alt="Aadarana Trust Logo"
             width={240}
             height={240}

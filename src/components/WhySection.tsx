@@ -2,19 +2,19 @@ import Image from "next/image";
 
 const whyData = [
   {
-    img: "/images/home/why childrej.JPG",
+    img: "/images/home/why childrej.webp",
     heading: "Why children?",
     desc: "Because one cared-for child creates a ripple of change that lifts families and communities.",
     color: "bg-[#e0f0fa] text-[#00395c]",
   },
   {
-    img: "/images/home/why home (2).jpg",
+    img: "/images/home/why home (2).webp",
     heading: "Why shelter?",
     desc: "Because a roof over a child's head is a foundation for dreams to grow.",
     color: "bg-[#e0f0fa] text-[#00395c]",
   },
   {
-    img: "/images/home/why education.JPG",
+    img: "/images/home/why education.webp",
     heading: "Why education?",
     desc: "Because schooling is not a privilege—it's a right and a path to independence.",
     color: "bg-[#e0f0fa] text-[#00395c]",

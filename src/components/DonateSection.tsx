@@ -1,12 +1,57 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const amounts = [10, 25, 50, 100];
+const currencyMap = {
+  US: { symbol: "$", amounts: [10, 25, 50, 100] },
+  IN: { symbol: "₹", amounts: [100, 250, 500, 1000] },
+  GB: { symbol: "£", amounts: [10, 20, 50, 100] },
+  EU: { symbol: "€", amounts: [10, 25, 50, 100] },
+};
 
 export default function DonateSection() {
-  const [selectedAmount, setSelectedAmount] = useState(amounts[0]);
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [frequency, setFrequency] = useState("monthly");
+  const [currencySymbol, setCurrencySymbol] = useState("$");
+  const [amounts, setAmounts] = useState<number[]>([10, 25, 50, 100]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchCountry() {
+      try {
+        const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
+        let country: string = data.country || "US";
+        // EU countries list (partial, can be expanded)
+        const euCountries = [
+          "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE"
+        ];
+        if (euCountries.includes(country)) country = "EU";
+        const config = currencyMap[country as keyof typeof currencyMap] || currencyMap["US"];
+        setCurrencySymbol(config.symbol);
+        setAmounts(config.amounts);
+        setSelectedAmount(config.amounts[0]);
+      } catch (e) {
+        setCurrencySymbol("$");
+        setAmounts([10, 25, 50, 100]);
+        setSelectedAmount(10);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchCountry();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="w-full flex items-center justify-center py-20 min-h-[400px]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-[#005FA1]" />
+          <span className="text-[#005FA1] font-bold text-lg">Detecting your location...</span>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full flex flex-col md:flex-row items-center justify-center gap-12 py-20">
@@ -37,7 +82,7 @@ export default function DonateSection() {
               onClick={() => setSelectedAmount(amt)}
               aria-pressed={selectedAmount === amt}
             >
-              ${amt}
+              {currencySymbol}{amt}
             </button>
           ))}
         </div>
@@ -50,7 +95,7 @@ export default function DonateSection() {
           aria-label="Custom donation amount"
         />
         <button className="mt-4 bg-[#005FA1] text-white font-bold py-2 rounded-lg hover:bg-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-[#005FA1]">
-          Donate {frequency === "monthly" ? "Monthly" : "Once"} ${selectedAmount}
+          Donate {frequency === "monthly" ? "Monthly" : "Once"} {currencySymbol}{selectedAmount}
         </button>
       </div>
       {/* Right Side */}
@@ -59,8 +104,8 @@ export default function DonateSection() {
         <p className="text-lg text-gray-700">Let&apos;s build that future—together</p>
         <div className="w-full flex flex-col md:flex-row gap-6 mt-8 justify-center items-stretch">
           {[{
-            label: "1 Dollar",
-            desc: "For every dollar you give"
+            label: currencySymbol === '₹' ? `100 ${currencySymbol}` : `1 ${currencySymbol === '$' ? 'Dollar' : currencySymbol === '£' ? 'Pound' : currencySymbol === '€' ? 'Euro' : 'Unit'}`,
+            desc: currencySymbol === '₹' ? 'For every 100 you give' : 'For every unit you give'
           }, {
             label: "1 Child",
             desc: "You help one child in need"
@@ -70,7 +115,7 @@ export default function DonateSection() {
           }].map((item) => (
             <div
               key={item.label}
-              className="bg-[#005FA1] text-white font-bold border-2 border-[#005FA1] flex flex-col justify-center items-center flex-1 min-w-[180px] max-w-[220px] min-h-[200px] text-center shadow-lg text-xl md:text-2xl uppercase tracking-wide select-none transition-all duration-200 hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-[#005FA1] mx-auto md:mx-0"
+              className="bg-[#005FA1] text-white font-bold border-2 border-[#005FA1] flex flex-col justify-center items-center w-56 min-h-[200px] text-center shadow-lg text-xl md:text-2xl uppercase tracking-wide select-none transition-all duration-200 hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-[#005FA1] mx-auto md:mx-0"
               style={{ borderRadius: 0 }}
             >
               <span className="text-2xl md:text-3xl font-extrabold leading-tight whitespace-nowrap mb-2">{item.label}</span>
