@@ -6,6 +6,16 @@ import AnimatedText from "../../components/AnimatedText";
 import { useState } from "react";
 import Carousel from '../../components/Carousel';
 
+const services = [
+  "Safety & Shelter",
+  "Nutritious Food",
+  "Quality Education",
+  "Healthcare & Hygiene",
+  "Clothing & Essentials",
+  "Emotional Support & Values",
+  "Creativity & Celebration"
+];
+
 const impactInfo = [
   {
     title: "Safety & Shelter",
@@ -47,7 +57,7 @@ const impactIcons = [
 export default function WhyChildrenHomePage() {
   const [open, setOpen] = useState<number | null>(null);
   return (
-    <div className="bg-white min-h-screen flex flex-col">
+    <div className="bg-white min-h-screen flex flex-col overflow-x-hidden">
       <Navbar />
       <main className="flex-1 flex flex-col">
         {/* Hero Section */}
@@ -72,13 +82,13 @@ export default function WhyChildrenHomePage() {
           </p>
         </section>
         {/* Carousel + Facts Section */}
-        <section className="w-full py-20 bg-gray-50 flex flex-col items-center">
+        <section className="w-full py-20 bg-gray-50 flex flex-col items-center overflow-x-hidden">
           <div className="w-full flex justify-center">
             <Carousel />
           </div>
         </section>
         {/* Expandable Info + Bento Images Section */}
-        <section className="w-full py-24 flex flex-col md:flex-row gap-16 items-stretch bg-white px-4">
+        <section className="w-full max-w-7xl mx-auto py-24 flex flex-col md:flex-row gap-16 items-stretch bg-white px-4">
           {/* Left: Accordion/text */}
           <div className="flex-1 flex flex-col gap-6 max-w-2xl w-full order-1 md:order-none">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-8 text-[#005FA1]">How Aadarana Changes Lives</h2>
@@ -89,7 +99,7 @@ export default function WhyChildrenHomePage() {
                   className="flex items-center w-full text-left text-xl md:text-2xl font-bold text-black focus:outline-none focus:ring-2 focus:ring-[#005FA1] py-3 border-b border-gray-200"
                 >
                   <span>{item.title}</span>
-                  <span className={`ml-auto transition-transform text-2xl text-black ${open === i ? "rotate-90" : "rotate-0"}`}>▶</span>
+                  <span className={`ml-auto transition-transform text-3xl text-black font-light ${open === i ? "rotate-45" : "rotate-0"}`}>+</span>
                 </button>
                 {open === i && (
                   <div className="pl-8 pr-2 py-3 text-lg md:text-xl text-gray-700 font-semibold bg-[#e0f0fa] rounded-xl mt-2 shadow">
@@ -118,7 +128,7 @@ export default function WhyChildrenHomePage() {
           </div>
         </section>
         {/* Impact Section with Icons */}
-        <section className="w-full py-24 flex flex-col md:flex-row items-center bg-gray-50 px-4 gap-16">
+        <section className="w-full py-24 flex flex-col md:flex-row items-center bg-gray-50 px-4 gap-4">
           {/* On mobile, photo first; on desktop, photo left */}
           <div className="flex-1 flex justify-center md:items-start items-center md:self-start order-1 md:order-none mb-8 md:mb-0">
             <Image 
@@ -132,16 +142,16 @@ export default function WhyChildrenHomePage() {
               className="rounded-3xl object-cover shadow-2xl w-full max-w-xs sm:max-w-sm md:max-w-[420px] md:max-w-[520px] h-auto"
             />
           </div>
-          <div className="flex-1 flex flex-col gap-8 max-w-xl w-full items-center order-2 md:order-none">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-[#005FA1] text-center">How to Uplift Vulnerable Children</h2>
-            <p className="text-xl md:text-2xl text-gray-700 font-semibold mb-6 text-left md:text-justify">
+          <div className="flex-1 flex flex-col gap-8 max-w-xl w-full items-center md:items-start order-2 md:order-none md:pr-8">
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-[#005FA1] text-center md:text-left">How to Uplift Vulnerable Children</h2>
+            <p className="text-xl md:text-2xl text-gray-700 font-semibold mb-6 text-left">
               Your support brings hope, dignity, and opportunity to orphaned and underserved children. With just ₹800, you can provide a month of nourishing meals, quality education, and a safe home for a child in need. Every act of generosity helps transform lives, opening doors to brighter futures and lasting change. Stand with us—together, we can create a world where every child thrives.
             </p>
-            <div className="grid grid-cols-2 gap-8 mb-6 w-full max-w-md">
+            <div className="grid grid-cols-4 gap-4 md:gap-8 mb-6 w-full">
               {impactIcons.map((item, i) => (
                 <div key={i} className="flex flex-col items-center gap-3">
                   <Image src={item.icon} alt={item.text} width={64} height={64} quality={80} loading="lazy" sizes="64px" />
-                  <span className="text-lg md:text-xl font-bold text-[#00395c] text-center">{item.text}</span>
+                  <span className="text-sm md:text-base font-bold text-[#00395c] text-center">{item.text}</span>
                 </div>
               ))}
             </div>

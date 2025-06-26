@@ -34,7 +34,7 @@ export default function Footer() {
           <div className="flex-grow" />
         </div>
         {/* Navigation */}
-        <div className="flex flex-col items-center md:items-center gap-6">
+        <div className="flex flex-col items-center md:items-center gap-6 mt-8">
           <nav aria-label="Footer navigation" className="w-full">
             <ul className="flex flex-col md:flex-col gap-3 md:gap-3 text-lg font-semibold items-center md:items-start">
               {navLinks.map((link) => (

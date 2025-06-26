@@ -114,13 +114,23 @@ export default function ImpactPage() {
             <div className="flex flex-col justify-center text-gray-800">
               <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#005FA1]">How We Work</h2>
               <p className="mb-4 text-lg font-semibold">Our impact is possible thanks to the generosity of individual donors, volunteers and partners who believe every child deserves a chance. We provide:</p>
-              <ul className="list-disc list-inside mb-4 pl-4 space-y-2 text-lg font-semibold">
-                {services.map(service => <li key={service}>{service}</li>)}
+              <ul className="space-y-3 text-lg font-semibold list-none p-0">
+                {services.map(service => (
+                  <li key={service} className="flex items-start">
+                    <span className="text-[#005FA1] font-bold mr-3 mt-1">+</span>
+                    <span>{service}</span>
+                  </li>
+                ))}
               </ul>
-              <p className="mb-4 text-lg font-semibold">We do not believe in a one-time intervention. We are in it for the long run—raising children like family.</p>
+              <p className="my-4 text-lg font-semibold">We do not believe in a one-time intervention. We are in it for the long run—raising children like family.</p>
               <p className="mb-4 text-lg font-semibold">Each child is supported with:</p>
-              <ul className="list-disc list-inside pl-4 space-y-2 text-lg font-semibold">
-                {childSupport.map(item => <li key={item}>{item}</li>)}
+              <ul className="space-y-3 text-lg font-semibold list-none p-0">
+                {childSupport.map(item => (
+                  <li key={item} className="flex items-start">
+                    <span className="text-[#005FA1] font-bold mr-3 mt-1">+</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
             </div>
             {/* Right Side: Image */}
