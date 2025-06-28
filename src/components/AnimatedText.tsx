@@ -26,7 +26,7 @@ export default function AnimatedText({ words }: AnimatedTextProps) {
 
   return (
     <span
-      className={`inline-block align-middle font-extrabold ml-2 transition-all duration-300 ease-in-out text-[#005FA1] whitespace-nowrap
+      className={`inline-block align-middle font-extrabold ml-2 transition-all duration-300 ease-in-out text-orange-500 whitespace-nowrap
         ${fade ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}
       `}
       style={{ fontSize: 'inherit', lineHeight: 1 }}
