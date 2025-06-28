@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { detectUserLocation, redirectToInternationalDonate } from "../utils/locationUtils";
 
 const currencyMap = {
   US: { symbol: "$", amounts: [10, 25, 50, 100] },
@@ -15,32 +16,46 @@ export default function DonateSection() {
   const [currencySymbol, setCurrencySymbol] = useState("$");
   const [amounts, setAmounts] = useState<number[]>([10, 25, 50, 100]);
   const [loading, setLoading] = useState(true);
+  const [isIndian, setIsIndian] = useState(true);
 
   useEffect(() => {
     async function fetchCountry() {
       try {
-        const res = await fetch("https://ipapi.co/json/");
-        const data = await res.json();
-        let country: string = data.country || "US";
+        const { country, isIndian: userIsIndian } = await detectUserLocation();
+        setIsIndian(userIsIndian);
+        
         // EU countries list (partial, can be expanded)
         const euCountries = [
           "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE"
         ];
-        if (euCountries.includes(country)) country = "EU";
-        const config = currencyMap[country as keyof typeof currencyMap] || currencyMap["US"];
+        let countryCode = country;
+        if (euCountries.includes(country)) countryCode = "EU";
+        
+        const config = currencyMap[countryCode as keyof typeof currencyMap] || currencyMap["US"];
         setCurrencySymbol(config.symbol);
         setAmounts(config.amounts);
         setSelectedAmount(config.amounts[0]);
-      } catch (e) {
+      } catch (error) {
+        console.warn("Location detection failed in DonateSection, using defaults:", error);
         setCurrencySymbol("$");
         setAmounts([10, 25, 50, 100]);
         setSelectedAmount(10);
+        setIsIndian(false); // Default to non-Indian if detection fails
       } finally {
         setLoading(false);
       }
     }
     fetchCountry();
   }, []);
+
+  const handleDonateClick = () => {
+    if (!isIndian) {
+      redirectToInternationalDonate();
+    } else {
+      // For Indian users, navigate to the donate page
+      window.location.href = '/donate';
+    }
+  };
 
   if (loading) {
     return (
@@ -94,7 +109,10 @@ export default function DonateSection() {
           onChange={e => setSelectedAmount(Number(e.target.value))}
           aria-label="Custom donation amount"
         />
-        <button className="mt-4 bg-[#005FA1] text-white font-bold py-2 rounded-lg hover:bg-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-[#005FA1]">
+        <button 
+          className="mt-4 bg-[#005FA1] text-white font-bold py-2 rounded-lg hover:bg-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-[#005FA1]"
+          onClick={handleDonateClick}
+        >
           Donate {frequency === "monthly" ? "Monthly" : "Once"} {currencySymbol}{selectedAmount}
         </button>
       </div>

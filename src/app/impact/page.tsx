@@ -1,6 +1,9 @@
+"use client";
+
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 const stats = [
   {
@@ -53,20 +56,77 @@ const missionActions = [
 const testimonials = [
   {
     quote: "I celebrated my daughter's birthday at Aadarana—it was the most meaningful celebration we've ever had.",
-    author: "Donor, Hyderabad"
+    author: "Mrs. Rajee, Donor"
   },
   {
     quote: "The children are bright, respectful and full of hope. Aadarana is raising future leaders.",
-    author: "Volunteer / Teacher"
+    author: "Mr. Gangadhar, Volunteer"
   }
 ];
+
+// Animated Counter Component
+function AnimatedCounter({ target, suffix = "", duration = 2000 }: { target: string; suffix?: string; duration?: number }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime: number | null = null;
+    const startValue = 0;
+    const endValue = parseInt(target.replace(/\D/g, '')); // Extract number from string like "65+"
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      
+      const currentCount = Math.floor(startValue + (endValue - startValue) * progress);
+      setCount(currentCount);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          requestAnimationFrame(animate);
+          observer.disconnect();
+        }
+      });
+    });
+
+    // Observe the parent element
+    const element = document.querySelector('[data-counter]');
+    if (element) {
+      observer.observe(element);
+    }
+
+    return () => observer.disconnect();
+  }, [target, duration]);
+
+  return (
+    <span className="text-5xl font-extrabold mb-4">
+      {count}{suffix}
+    </span>
+  );
+}
 
 export default function ImpactPage() {
   return (
     <div className="overflow-x-hidden">
       <Navbar />
       <section className="relative w-full h-[50vh] md:h-[70vh] flex items-center justify-center bg-gray-900">
-        <div className="relative z-10 flex flex-col items-center justify-center h-full w-full text-center px-4">
+        <Image
+          src="/images/gallery/20250207_185638.jpg"
+          alt="Background for impact hero section"
+          fill
+          quality={80}
+          priority
+          sizes="100vw"
+          className="object-cover z-0"
+          style={{ objectPosition: 'center 30%' }}
+        />
+        <div className="absolute inset-0 bg-black/60 z-10" />
+        <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4">
           <h1 className="text-white text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
             Real Impact. Real Stories. Real Change.
           </h1>
@@ -75,15 +135,18 @@ export default function ImpactPage() {
           </p>
         </div>
       </section>
-      <main className="bg-white py-16 md:py-24">
-        <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center px-4">
+      <main className="bg-white">
+        <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center px-4 pt-16 md:pt-24">
           {/* Left Side: Image */}
           <div className="w-full h-72 md:h-[480px] rounded-2xl overflow-hidden shadow-xl">
             <Image
-              src="/images/home/why home (2).webp"
+              src="/images/gallery/2T9A4041 (1).JPG"
               alt="A child at Aadarana Home receiving care"
               width={600}
               height={600}
+              quality={100}
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="w-full h-full object-cover"
             />
           </div>
@@ -96,11 +159,14 @@ export default function ImpactPage() {
         </section>
 
         {/* Stats Section */}
-        <section className="max-w-7xl mx-auto py-16 md:py-24 px-4">
+        <section className="max-w-7xl mx-auto py-16 md:py-24 px-4" data-counter>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
               <div key={index} className="bg-gradient-to-r from-[#005FA1] to-[#00395c] text-white p-8 rounded-2xl shadow-lg flex flex-col items-center text-center h-full">
-                <h3 className="text-5xl font-extrabold mb-4">{stat.number}</h3>
+                <AnimatedCounter 
+                  target={stat.number} 
+                  suffix={stat.number.includes('+') ? '+' : ''} 
+                />
                 <p className="text-base font-medium opacity-90">{stat.description}</p>
               </div>
               ))}
@@ -136,10 +202,13 @@ export default function ImpactPage() {
             {/* Right Side: Image */}
             <div className="w-full h-96 md:h-full rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/images/home/why education.webp"
+                src="/images/gallery/2T9A4019-1.jpg"
                 alt="Child receiving education and support"
                 width={600}
                 height={700}
+                quality={100}
+                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -168,7 +237,7 @@ export default function ImpactPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               {testimonials.map((testimonial, index) => (
                 <div key={index} className="bg-gradient-to-r from-[#005FA1] to-[#00395c] text-white p-8 rounded-2xl shadow-lg flex flex-col h-full">
-                  <span className="text-7xl text-white opacity-20 font-serif leading-none">“</span>
+                  <span className="text-7xl text-white opacity-20 font-serif leading-none">"</span>
                   <p className="text-xl italic font-semibold text-white mb-6 flex-grow">
                     {testimonial.quote}
                   </p>
@@ -184,11 +253,13 @@ export default function ImpactPage() {
         {/* CTA Section */}
         <section className="relative bg-gray-800 py-16 md:py-24">
           <Image
-            src="/images/home/1-1.webp" // A different image for variety
+            src="/images/gallery/1.jpg"
             alt="Join our mission"
             fill
+            quality={100}
+            priority
+            sizes="100vw"
             className="object-cover z-0"
-            quality={80}
           />
           <div className="absolute inset-0 bg-black/60 z-10" />
           <div className="relative z-20 max-w-4xl mx-auto text-center px-4">

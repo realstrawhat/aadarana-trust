@@ -62,7 +62,7 @@ export default function WhyChildrenHomePage() {
       <main className="flex-1 flex flex-col">
         {/* Hero Section */}
         <section className="relative w-full min-h-[70vh] flex flex-col items-center justify-center overflow-hidden bg-black">
-          <Image src="/images/hero-bg.webp" alt="Children" fill quality={80} loading="eager" priority sizes="100vw" className="object-cover z-0" />
+          <Image src="/images/gallery/717.jpg" alt="Children" fill quality={80} loading="eager" priority sizes="100vw" className="object-cover object-top z-0" style={{ objectPosition: 'center 30%' }} />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 z-10" />
           <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4">
             <h1 className="text-white text-5xl md:text-7xl font-extrabold mb-8 drop-shadow-xl tracking-tight">
@@ -98,14 +98,16 @@ export default function WhyChildrenHomePage() {
                   onClick={() => setOpen(open === i ? null : i)}
                   className="flex items-center w-full text-left text-xl md:text-2xl font-bold text-black focus:outline-none focus:ring-2 focus:ring-[#005FA1] py-3 border-b border-gray-200"
                 >
-                  <span>{item.title}</span>
+                  <div className="flex flex-col items-start">
+                    <span>{item.title}</span>
+                    {open === i && (
+                      <span className="text-lg md:text-xl text-gray-700 font-normal mt-2 text-left">
+                        {item.desc}
+                      </span>
+                    )}
+                  </div>
                   <span className={`ml-auto transition-transform text-3xl text-black font-light ${open === i ? "rotate-45" : "rotate-0"}`}>+</span>
                 </button>
-                {open === i && (
-                  <div className="pl-8 pr-2 py-3 text-lg md:text-xl text-gray-700 font-semibold bg-[#e0f0fa] rounded-xl mt-2 shadow">
-                    {item.desc}
-                  </div>
-                )}
               </div>
             ))}
           </div>
@@ -114,15 +116,75 @@ export default function WhyChildrenHomePage() {
             <div className="grid grid-cols-2 gap-1 md:gap-2 w-full">
               {/* Left column */}
               <div className="flex flex-col gap-1 md:gap-2 h-full min-h-0">
-                <div className="bg-gray-300 rounded-2xl w-full flex-1 min-h-0" />
-                <div className="bg-gray-300 rounded-2xl w-full flex-1 min-h-0" />
-                <div className="bg-gray-300 rounded-2xl w-full flex-1 min-h-0" />
+                <div className="bg-gray-300 rounded-2xl w-full flex-1 min-h-0 relative overflow-hidden">
+                  <Image
+                    src="/images/gallery/IMG_20230715_141909 (1).jpg"
+                    alt="Bento photo 1"
+                    fill
+                    quality={80}
+                    loading="lazy"
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="bg-gray-300 rounded-2xl w-full flex-1 min-h-0 relative overflow-hidden">
+                  <Image
+                    src="/images/gallery/IMG_20230712_204358.jpg"
+                    alt="Bento photo 2"
+                    fill
+                    quality={80}
+                    loading="lazy"
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="bg-gray-300 rounded-2xl w-full flex-1 min-h-0 relative overflow-hidden">
+                  <Image
+                    src="/images/gallery/20240721_140006 (1).jpg"
+                    alt="Bento photo 3"
+                    fill
+                    quality={80}
+                    loading="lazy"
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
               </div>
               {/* Right column */}
               <div className="flex flex-col gap-1 md:gap-2 h-full min-h-0">
-                <div className="bg-gray-200 rounded-2xl w-full" style={{height: '20%'}} />
-                <div className="bg-gray-400 rounded-2xl w-full flex-1 min-h-0" />
-                <div className="bg-gray-300 rounded-2xl w-full" style={{height: '25%'}} />
+                <div className="bg-gray-200 rounded-2xl w-full relative overflow-hidden" style={{height: '20%'}}>
+                  <Image
+                    src="/images/gallery/20250527_125446.jpg"
+                    alt="Bento photo 4"
+                    fill
+                    quality={80}
+                    loading="lazy"
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="bg-gray-400 rounded-2xl w-full flex-1 min-h-0 relative overflow-hidden">
+                  <Image
+                    src="/images/gallery/2T9A4016 (1).JPG"
+                    alt="Bento photo 5"
+                    fill
+                    quality={80}
+                    loading="lazy"
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="bg-gray-300 rounded-2xl w-full relative overflow-hidden" style={{height: '25%'}}>
+                  <Image
+                    src="/images/gallery/20250126_134235.jpg"
+                    alt="Bento photo 6"
+                    fill
+                    quality={80}
+                    loading="lazy"
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -132,20 +194,19 @@ export default function WhyChildrenHomePage() {
           {/* On mobile, photo first; on desktop, photo left */}
           <div className="flex-1 flex justify-center md:items-start items-center md:self-start order-1 md:order-none mb-8 md:mb-0">
             <Image 
-              src="/images/impact-photo.webp" 
-              alt="Impact" 
-              width={520} 
-              height={520} 
-              quality={80}
-              loading="lazy"
+              src="/images/gallery/20250126_124228-1.jpg" 
+              alt="Vulnerable Children" 
+              width={600} 
+              height={600} 
+              priority
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="rounded-3xl object-cover shadow-2xl w-full max-w-xs sm:max-w-sm md:max-w-[420px] md:max-w-[520px] h-auto"
+              className="rounded-3xl object-cover shadow-2xl w-full max-w-xs sm:max-w-sm md:max-w-[480px] md:max-w-[600px] h-[600px]"
             />
           </div>
           <div className="flex-1 flex flex-col gap-8 max-w-xl w-full items-center md:items-start order-2 md:order-none md:pr-8">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-[#005FA1] text-center md:text-left">How to Uplift Vulnerable Children</h2>
             <p className="text-xl md:text-2xl text-gray-700 font-semibold mb-6 text-left">
-              Your support brings hope, dignity, and opportunity to orphaned and underserved children. With just ₹800, you can provide a month of nourishing meals, quality education, and a safe home for a child in need. Every act of generosity helps transform lives, opening doors to brighter futures and lasting change. Stand with us—together, we can create a world where every child thrives.
+              At Aadarana Trust, we believe that no child should suffer for the circumstances they were born into. We care for orphaned, abandoned, and vulnerable children—offering them not just survival, but a home filled with warmth, learning, and hope. When a child receives food, education, and love, everything changes. They dream again. They learn. They grow into citizens who give back. This isn't just about charity. It's about transformation. Every meal shared, every book opened, every blanket provided—it all adds up to a life no longer defined by fear or neglect.
             </p>
             <div className="grid grid-cols-4 gap-4 md:gap-8 mb-6 w-full">
               {impactIcons.map((item, i) => (
@@ -159,11 +220,20 @@ export default function WhyChildrenHomePage() {
           </div>
         </section>
         {/* Quote Section */}
-        <section className="relative w-full py-40 flex items-center justify-center bg-gradient-to-br from-[#005FA1] via-[#00395c] to-[#005FA1]">
+        <section className="relative w-full py-20 flex items-center justify-center bg-gradient-to-br from-[#005FA1] via-[#00395c] to-[#005FA1]">
+          <Image
+            src="/images/gallery/mother-theresa-GettyImages-863357110.avif"
+            alt="Mother Theresa"
+            fill
+            quality={80}
+            loading="lazy"
+            sizes="100vw"
+            className="object-cover z-0"
+          />
           <div className="absolute inset-0 bg-black/60 z-10" aria-hidden="true" />
-          <blockquote className="relative z-20 max-w-4xl mx-auto text-center text-white text-4xl md:text-6xl font-semibold italic px-8 py-20">
+          <blockquote className="relative z-20 max-w-4xl mx-auto text-center text-white text-4xl md:text-6xl font-semibold italic px-8 py-12">
             &quot;…if you love until it hurts, there will be no more hurt and only love.&quot;<br />
-            <span className="block mt-10 text-2xl font-normal not-italic opacity-80">— Mother Theresa</span>
+            <span className="block mt-8 text-2xl font-normal not-italic opacity-80">— Mother Theresa</span>
           </blockquote>
         </section>
       </main>

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { detectUserLocation, redirectToInternationalDonate } from "../utils/locationUtils";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -16,6 +17,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isIndian, setIsIndian] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +26,28 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    async function checkLocation() {
+      try {
+        const { isIndian: userIsIndian } = await detectUserLocation();
+        setIsIndian(userIsIndian);
+      } catch (error) {
+        console.warn("Location check failed in Navbar, defaulting to Indian:", error);
+        setIsIndian(true); // Default to Indian if detection fails
+      }
+    }
+    checkLocation();
+  }, []);
+
+  const handleDonateClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!isIndian) {
+      redirectToInternationalDonate();
+    } else {
+      window.location.href = '/donate';
+    }
+  };
 
   return (
     <nav
@@ -65,6 +89,7 @@ export default function Navbar() {
                   href={link.href}
                   className="ml-2 px-6 py-2 rounded-full bg-gradient-to-r from-[#005FA1] to-[#00395c] text-white font-bold text-lg shadow hover:from-[#00395c] hover:to-[#00395c] transition-all focus:outline-none focus:ring-2 focus:ring-[#005FA1] flex items-center h-full"
                   aria-label={link.name}
+                  onClick={handleDonateClick}
                 >
                   {link.name}
                 </Link>
@@ -91,7 +116,7 @@ export default function Navbar() {
                   href={link.href}
                   className="block w-full px-5 py-2 rounded-full bg-gradient-to-r from-[#005FA1] to-[#00395c] text-white font-bold shadow hover:from-[#00395c] hover:to-[#00395c] transition-all focus:outline-none focus:ring-2 focus:ring-[#005FA1] text-center"
                   aria-label={link.name}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={handleDonateClick}
                 >
                   {link.name}
                 </Link>

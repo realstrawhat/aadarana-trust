@@ -6,27 +6,27 @@ import { useSwipeable } from 'react-swipeable';
 
 const slides = [
   {
-    image: '/images/child1.webp',
+    image: '/images/gallery/DSC04100.JPG',
     title: 'Deprived of Basic Rights',
     description: 'Millions of children in India are deprived of basic rights like education, healthcare, and protection.'
   },
   {
-    image: '/images/child2.webp',
+    image: '/images/gallery/DSC04092.JPG',
     title: 'Children at Risk',
     description: 'Children from poverty-stricken, broken, or unsafe homes often face neglect, abuse, or are forced into child labor.'
   },
   {
-    image: '/images/child3.webp',
+    image: '/images/gallery/33.jpg',
     title: 'Rescued from Exploitation',
     description: 'Many come from backgrounds involving street begging, domestic servitude, or are rescued from exploitative environments.'
   },
   {
-    image: '/images/child4.webp',
+    image: '/images/gallery/DSC04254.JPG',
     title: 'Girls Lack Basic Safety',
     description: 'Girls, especially, suffer from lack of education, hygiene and safety, making them vulnerable.'
   },
   {
-    image: '/images/child5.webp',
+    image: '/images/gallery/44.jpg',
     title: 'Women and girls bear the burden',
     description: 'They walk an average of four miles each day to collect water—work that keeps them out of school and limits their opportunity.'
   },
@@ -65,12 +65,14 @@ export default function Carousel() {
                     className="object-cover object-center"
                     priority={i === index}
                   />
+                  {/* Black tint overlay */}
+                  <div className="absolute inset-0 bg-black/40 z-5"></div>
                   {/* Caption overlay */}
                   <div className="absolute inset-0 flex items-center justify-center z-10">
-                    <div className="bg-white text-gray-900 rounded-2xl shadow-lg border border-gray-200 flex flex-col items-center justify-center text-center w-56 h-56 md:w-80 md:h-80 px-4 py-4">
+                    <div className="bg-black/30 text-white rounded-2xl flex flex-col items-center justify-center text-center w-80 h-40 md:w-96 md:h-48 px-6 py-6">
                       <span className="text-lg md:text-2xl font-bold mb-2">{slide.title}</span>
                       {slide.description && (
-                        <span className="text-sm md:text-lg font-medium opacity-80">{slide.description}</span>
+                        <span className="text-sm md:text-lg font-medium opacity-90">{slide.description}</span>
                       )}
                     </div>
                   </div>

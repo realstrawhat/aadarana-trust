@@ -17,9 +17,14 @@ export default function OurStoryPage() {
       <Navbar />
       <main className="flex-1 flex flex-col overflow-x-hidden max-w-full" style={{overflowX: 'hidden', maxWidth: '100vw', boxSizing: 'border-box'}}>
         {/* Hero Section */}
-        <section className="relative w-full min-h-[60vh] flex flex-col items-center justify-center overflow-hidden bg-[#005FA1] px-4 md:px-0 max-w-full" style={{overflowX: 'hidden', maxWidth: '100vw', boxSizing: 'border-box'}}>
-          <ParticlesClientOnly />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#005FA1]/80 via-[#005FA1]/60 to-[#005FA1]/90 z-10" />
+        <section className="relative w-full min-h-[60vh] flex flex-col items-center justify-center overflow-hidden px-4 md:px-0 max-w-full" style={{overflowX: 'hidden', maxWidth: '100vw', boxSizing: 'border-box'}}>
+          <img
+            src="/images/gallery/IMG_20240325_163654.jpg"
+            alt="Background for our story hero section"
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-black/40 z-10" />
           <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4 md:px-0 max-w-full">
             <h1 className="text-white text-4xl md:text-6xl font-extrabold mb-8 drop-shadow-xl tracking-tight">
               All great movements start with a great story.<br className="hidden md:block" /> This is ours.
@@ -28,11 +33,13 @@ export default function OurStoryPage() {
         </section>
         {/* Story Section */}
         <section className="w-full py-20 flex flex-col items-center bg-white px-4 md:px-0 max-w-full" style={{overflowX: 'hidden', maxWidth: '100vw', boxSizing: 'border-box'}}>
-          <p className="max-w-3xl text-lg md:text-2xl text-left text-gray-800 font-semibold leading-relaxed mb-8 px-2 sm:px-4 md:px-0">
-            Aadarana Trust was founded by Mr. Nandigama Kiran in 2013, after a life-changing mission to the slums of Telangana. There, he witnessed first-hand the harsh realities faced by orphaned and abandoned children—many of whom had no food, shelter, education, or even a name.<br /><br />
-            That moment of truth gave rise to a lifelong mission: To provide vulnerable children not only a safe home, but a childhood filled with dignity, love and opportunity.<br /><br />
-            Aadarana (which means compassion) began humbly with just 8 children in a small rented home. Over time, the trust grew—steadily, quietly, and powerfully—into a beacon of hope for more than 65 boys and girls, and a trusted organization recognized for its integrity, impact and heart.
-          </p>
+          <div className="bg-pink-100 p-8 md:p-12 rounded-2xl max-w-4xl w-full">
+            <p className="max-w-3xl text-lg md:text-2xl text-left text-gray-800 font-semibold leading-relaxed mb-8 px-2 sm:px-4 md:px-0">
+              Aadarana Trust was founded by Mr. Nandigama Kiran in 2013, after a life-changing mission to the slums of Telangana. There, he witnessed first-hand the harsh realities faced by orphaned and abandoned children—many of whom had no food, shelter, education, or even a name.<br /><br />
+              That moment of truth gave rise to a lifelong mission: To provide vulnerable children not only a safe home, but a childhood filled with dignity, love and opportunity.<br /><br />
+              Aadarana (which means compassion) began humbly with just 8 children in a small rented home. Over time, the trust grew—steadily, quietly, and powerfully—into a beacon of hope for more than 65 boys and girls, and a trusted organization recognized for its integrity, impact and heart.
+            </p>
+          </div>
         </section>
         {/* Timeline Section - Pure HTML & CSS */}
         <section className="w-full py-20 bg-[#005FA1] flex flex-col items-center px-2 sm:px-4 md:px-0 max-w-full" style={{overflowX: 'hidden', maxWidth: '100vw', boxSizing: 'border-box'}}>
@@ -257,52 +264,52 @@ export default function OurStoryPage() {
             {/* Team Member 1 */}
             <div className="flex flex-col items-center w-full min-w-0">
               <div className="w-52 h-52 md:w-72 md:h-72 bg-gray-200 shadow-lg overflow-hidden mb-4 flex items-center justify-center">
-                <img src="/images/team/kiran.webp" alt="Nandigama Kiran" className="object-cover w-full h-full" style={{aspectRatio: '1/1'}} onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}} />
+                <img src="/images/gallery/kiran.jpg" alt="Nandigama Kiran" className="object-cover w-full h-full" style={{aspectRatio: '1/1'}} onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}} />
               </div>
-              <div className="text-center">
-                <div className="font-bold text-lg md:text-xl text-[#005FA1]">Nandigama Kiran</div>
-                <div className="text-gray-700 text-base md:text-lg">Founder & Trustee</div>
+              <div className="text-left w-52 md:w-72">
+                <div className="font-bold text-lg md:text-xl text-[#005FA1] whitespace-nowrap">Nandigama Kiran</div>
+                <div className="text-gray-700 text-base md:text-lg whitespace-nowrap">Founder & Trustee</div>
               </div>
             </div>
             {/* Team Member 2 */}
             <div className="flex flex-col items-center w-full min-w-0">
               <div className="w-52 h-52 md:w-72 md:h-72 bg-gray-200 shadow-lg overflow-hidden mb-4 flex items-center justify-center">
-                <img src="/images/team/sireesha.webp" alt="Sireesha" className="object-cover w-full h-full" style={{aspectRatio: '1/1'}} onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}} />
+                <img src="/images/gallery/siresh.jpg" alt="Sireesha" className="object-cover w-full h-full" style={{aspectRatio: '1/1'}} onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}} />
               </div>
-              <div className="text-center">
-                <div className="font-bold text-lg md:text-xl text-[#005FA1]">Sireesha</div>
-                <div className="text-gray-700 text-base md:text-lg">Children's Home Coordinator (Girls)</div>
+              <div className="text-left w-52 md:w-72">
+                <div className="font-bold text-lg md:text-xl text-[#005FA1] whitespace-nowrap">Sireesha</div>
+                <div className="text-gray-700 text-base md:text-lg whitespace-nowrap">Girls Home Coordinator</div>
               </div>
             </div>
             {/* Team Member 3 */}
             <div className="flex flex-col items-center w-full min-w-0">
               <div className="w-52 h-52 md:w-72 md:h-72 bg-gray-200 shadow-lg overflow-hidden mb-4 flex items-center justify-center">
-                <img src="/images/team/madhu.webp" alt="Madhu" className="object-cover w-full h-full" style={{aspectRatio: '1/1'}} onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}} />
+                <img src="/images/gallery/madhu.jpg" alt="Madhu" className="object-cover w-full h-full" style={{aspectRatio: '1/1'}} onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}} />
               </div>
-              <div className="text-center">
-                <div className="font-bold text-lg md:text-xl text-[#005FA1]">Madhu</div>
-                <div className="text-gray-700 text-base md:text-lg">Logistics & Meals Support</div>
+              <div className="text-left w-52 md:w-72">
+                <div className="font-bold text-lg md:text-xl text-[#005FA1] whitespace-nowrap">Madhu</div>
+                <div className="text-gray-700 text-base md:text-lg whitespace-nowrap">Logistics & Meals Support</div>
               </div>
             </div>
             {/* Team Member 4 */}
             <div className="flex flex-col items-center w-full min-w-0">
               <div className="w-52 h-52 md:w-72 md:h-72 bg-gray-200 shadow-lg overflow-hidden mb-4 flex items-center justify-center">
-                <img src="/images/team/murali.webp" alt="Murali" className="object-cover w-full h-full" style={{aspectRatio: '1/1'}} onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}} />
+                <img src="/images/gallery/murali-1.jpg" alt="Murali" className="object-cover w-full h-full" style={{aspectRatio: '1/1'}} onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}} />
               </div>
-              <div className="text-center">
-                <div className="font-bold text-lg md:text-xl text-[#005FA1]">Murali</div>
-                <div className="text-gray-700 text-base md:text-lg">Education & School Liaison</div>
+              <div className="text-left w-52 md:w-72">
+                <div className="font-bold text-lg md:text-xl text-[#005FA1] whitespace-nowrap">Murali</div>
+                <div className="text-gray-700 text-base md:text-lg whitespace-nowrap">Education & School Liaison</div>
               </div>
             </div>
           </div>
         </section>
         {/* Quote Section */}
-        <section className="relative w-full py-16 md:py-28 flex items-center justify-center bg-gray-900 min-h-[400px] md:min-h-[520px]">
+        <section className="relative w-full py-16 md:py-16 flex items-center justify-center bg-gray-900 min-h-[400px] md:min-h-[520px]">
           <img
-            src="/images/home/IMG_4896.webp"
+            src="/images/gallery/IMG_20240401_181608-1.jpg"
             alt="Background for quote section"
             className="object-cover w-full h-full absolute inset-0"
-            style={{ objectPosition: 'center' }}
+            style={{ objectPosition: 'center 30%' }}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-black/60 z-10" aria-hidden="true" />
@@ -310,7 +317,7 @@ export default function OurStoryPage() {
             <span className="block mb-6 text-2xl md:text-4xl" style={{ fontStyle: 'italic', fontWeight: 500, letterSpacing: '-0.01em' }}>
               "We started with 8 children and a dream. Today, we are raising future doctors, teachers, and leaders—with love, values and dignity."
             </span>
-            <span className="block mt-4 text-lg md:text-2xl font-normal not-italic opacity-80">— Founder, Nandigama Kiran</span>
+            <span className="block mt-8 text-2xl font-normal not-italic opacity-80">— Nandigama Kiran, Founder</span>
           </blockquote>
         </section>
       </main>
