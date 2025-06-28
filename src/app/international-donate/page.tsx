@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { detectUserLocation } from "../../utils/locationUtils";
-import { getCurrencySymbol, currencySymbolClass } from "../../utils/currencyUtils";
 
 const impactData: Record<string, Array<{ amount: number; label: string }>> = {
   IN: [
@@ -44,7 +43,6 @@ export default function InternationalDonatePage() {
   const [country, setCountry] = useState("IN");
   const [currency, setCurrency] = useState(currencyMap.IN);
   const [impacts, setImpacts] = useState(impactData.IN);
-  const [useFallback, setUseFallback] = useState(false);
 
   useEffect(() => {
     async function fetchCountry() {
@@ -58,19 +56,17 @@ export default function InternationalDonatePage() {
         if (euCountries.includes(code)) code = "EU";
         if (!impactData[code]) code = "IN";
         setCountry(code);
-        const symbol = getCurrencySymbol(code, useFallback);
-        setCurrency({ ...currencyMap[code] || currencyMap.IN, symbol });
+        setCurrency(currencyMap[code] || currencyMap.IN);
         setImpacts(impactData[code] || impactData.IN);
       } catch (error) {
         console.warn("Location detection failed in international donate page, using defaults:", error);
         setCountry("IN");
-        const symbol = getCurrencySymbol("IN", useFallback);
-        setCurrency({ ...currencyMap.IN, symbol });
+        setCurrency(currencyMap.IN);
         setImpacts(impactData.IN);
       }
     }
     fetchCountry();
-  }, [useFallback]);
+  }, []);
 
   return (
     <div className="bg-white min-h-screen">
@@ -157,7 +153,7 @@ export default function InternationalDonatePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 {impacts.map((item, idx) => (
                   <div key={idx} className="bg-gradient-to-br from-[#e0f0fa] to-[#b3d9f2] p-6 rounded-2xl border-l-4 border-[#005FA1]">
-                    <div className={`text-2xl md:text-3xl font-bold text-[#005FA1] mb-2 ${currencySymbolClass}`}>
+                    <div className="text-2xl md:text-3xl font-bold text-[#005FA1] mb-2">
                       {currency.symbol}{item.amount.toLocaleString()}
                     </div>
                     <p className="text-lg font-semibold text-gray-800">{item.label}</p>

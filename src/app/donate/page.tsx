@@ -1,56 +1,68 @@
 "use client";
-import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import { useState, useEffect } from "react";
 import { detectUserLocation, redirectToInternationalDonate } from "../../utils/locationUtils";
-import { getCurrencySymbol, currencySymbolClass } from "../../utils/currencyUtils";
 
 const currencyMap = {
-  US: { symbol: "$", amounts: [10, 25, 50, 100] },
-  IN: { symbol: "₹", amounts: [100, 250, 500, 1000] },
-  GB: { symbol: "£", amounts: [10, 20, 50, 100] },
-  EU: { symbol: "€", amounts: [10, 25, 50, 100] },
+  US: { 
+    symbol: "$", 
+    impactCards: [
+      { amount: 10, description: "Feeds 5 hungry children for a week with nutritious meals" },
+      { amount: 50, description: "Provides complete education support including books, uniforms & tuition" },
+      { amount: 250, description: "Ensures medical care, hygiene & personal care for a child for a month" },
+      { amount: 660, description: "Transforms one child's entire year with complete care & support" }
+    ]
+  },
+  IN: { 
+    symbol: "₹", 
+    impactCards: [
+      { amount: 1000, description: "Feeds 5 hungry children for a week with nutritious meals" },
+      { amount: 5000, description: "Provides complete education support including books, uniforms & tuition" },
+      { amount: 25000, description: "Ensures medical care, hygiene & personal care for a child for a month" },
+      { amount: 66000, description: "Transforms one child's entire year with complete care & support" }
+    ]
+  },
+  GB: { 
+    symbol: "£", 
+    impactCards: [
+      { amount: 10, description: "Feeds 5 hungry children for a week with nutritious meals" },
+      { amount: 50, description: "Provides complete education support including books, uniforms & tuition" },
+      { amount: 250, description: "Ensures medical care, hygiene & personal care for a child for a month" },
+      { amount: 660, description: "Transforms one child's entire year with complete care & support" }
+    ]
+  },
+  EU: { 
+    symbol: "€", 
+    impactCards: [
+      { amount: 10, description: "Feeds 5 hungry children for a week with nutritious meals" },
+      { amount: 50, description: "Provides complete education support including books, uniforms & tuition" },
+      { amount: 250, description: "Ensures medical care, hygiene & personal care for a child for a month" },
+      { amount: 660, description: "Transforms one child's entire year with complete care & support" }
+    ]
+  }
 };
 
-const impactCards = [
-  {
-    title: "Education",
-    description: "Provide books, uniforms, and school supplies",
-    icon: "📚",
-    color: "from-blue-500 to-blue-600"
-  },
-  {
-    title: "Healthcare",
-    description: "Medical checkups, vaccinations, and treatment",
-    icon: "🏥",
-    color: "from-green-500 to-green-600"
-  },
-  {
-    title: "Nutrition",
-    description: "Three nutritious meals every day",
-    icon: "🍎",
-    color: "from-orange-500 to-orange-600"
-  },
-  {
-    title: "Shelter",
-    description: "Safe and comfortable living environment",
-    icon: "🏠",
-    color: "from-purple-500 to-purple-600"
-  }
-];
-
 export default function DonatePage() {
-  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
-  const [frequency, setFrequency] = useState("monthly");
   const [currencySymbol, setCurrencySymbol] = useState("₹");
-  const [amounts, setAmounts] = useState<number[]>([100, 250, 500, 1000]);
+  const [impactCards, setImpactCards] = useState(currencyMap.IN.impactCards);
   const [loading, setLoading] = useState(true);
-  const [useFallback, setUseFallback] = useState(false);
+  const [donationAmount, setDonationAmount] = useState("");
+  const [isMonthly, setIsMonthly] = useState(false);
+  const [selectedAmount, setSelectedAmount] = useState("");
+  const [isIndian, setIsIndian] = useState(true);
 
   useEffect(() => {
     async function fetchCountry() {
       try {
-        const { country } = await detectUserLocation();
+        const { country, isIndian: userIsIndian } = await detectUserLocation();
+        setIsIndian(userIsIndian);
+        
+        // Redirect non-Indian users to international donate page
+        if (!userIsIndian) {
+          redirectToInternationalDonate();
+          return;
+        }
         
         // EU countries list (partial, can be expanded)
         const euCountries = [
@@ -60,35 +72,40 @@ export default function DonatePage() {
         if (euCountries.includes(country)) countryCode = "EU";
         
         const config = currencyMap[countryCode as keyof typeof currencyMap] || currencyMap["IN"];
-        const symbol = getCurrencySymbol(countryCode, useFallback);
-        setCurrencySymbol(symbol);
-        setAmounts(config.amounts);
-        setSelectedAmount(config.amounts[0]);
+        setCurrencySymbol(config.symbol);
+        setImpactCards(config.impactCards);
       } catch (error) {
         console.warn("Location detection failed in donate page, using defaults:", error);
         setCurrencySymbol("₹");
-        setAmounts([100, 250, 500, 1000]);
-        setSelectedAmount(100);
+        setImpactCards(currencyMap.IN.impactCards);
+        setIsIndian(true); // Default to Indian if detection fails
       } finally {
         setLoading(false);
       }
     }
     fetchCountry();
-  }, [useFallback]);
+  }, []);
 
-  const handleDonateClick = () => {
-    // Redirect to FormBold or payment gateway
-    window.open("https://formbold.com/s/your-form-id", "_blank");
+  const handleAmountSelect = (amount: string) => {
+    setSelectedAmount(amount);
+    setDonationAmount(amount);
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle donation submission here
+    console.log("Donation submitted:", { amount: donationAmount, isMonthly });
+  };
+
+  // Show loading while checking location
   if (loading) {
     return (
-      <div className="bg-white min-h-screen">
+      <div className="overflow-x-hidden">
         <Navbar />
-        <div className="flex items-center justify-center py-20">
+        <div className="w-full flex items-center justify-center py-20 min-h-[400px]">
           <div className="flex flex-col items-center gap-4">
             <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-[#005FA1]" />
-            <span className="text-[#005FA1] font-bold text-lg">Loading...</span>
+            <span className="text-[#005FA1] font-bold text-lg">Detecting your location...</span>
           </div>
         </div>
         <Footer />
@@ -97,149 +114,176 @@ export default function DonatePage() {
   }
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="overflow-x-hidden">
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative w-full h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('/images/hero/donate-hero.webp')",
-            backgroundPosition: "center 30%"
-          }}
+      <section className="relative w-full h-[50vh] md:h-[70vh] flex items-center justify-center">
+        <img
+          src="/images/gallery/20240829_154159-2.jpg"
+          alt="Background for donate hero section"
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          style={{ objectPosition: 'center 30%' }}
+          loading="eager"
         />
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="relative z-10 text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-            Make a Difference Today
+        <div className="absolute inset-0 bg-black/40 z-10" />
+        <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4">
+          <h1 className="text-white text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+            Donate Today
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
-            Your donation helps provide care, education, and hope to vulnerable children
+          <p className="text-white text-lg md:text-2xl font-medium drop-shadow-md max-w-4xl mx-auto leading-relaxed">
+            Every rupee you give brings a child closer to a life of safety, education and love.
           </p>
         </div>
       </section>
 
-      {/* Impact Cards */}
-      <section className="py-16 bg-gray-50">
+      {/* Main Content */}
+      <section className="bg-white py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Your Impact
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Every donation makes a real difference in a child's life
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {impactCards.map((card, index) => (
-              <div key={index} className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
-                <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${card.color} flex items-center justify-center text-2xl`}>
-                  {card.icon}
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{card.title}</h3>
-                <p className="text-gray-600">{card.description}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
+            
+            {/* Donation Form - First on mobile, second on desktop */}
+            <div className="order-1 lg:order-2 lg:sticky lg:top-8">
+              <div className="bg-gradient-to-br from-[#005FA1] to-[#00395c] p-8 rounded-3xl text-white shadow-2xl">
+                <h2 className="text-3xl font-bold mb-6 text-center">Make a Donation</h2>
+                
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Donation Type Toggle */}
+                  <div className="flex bg-white/20 rounded-full p-1">
+                    <button
+                      type="button"
+                      onClick={() => setIsMonthly(false)}
+                      className={`flex-1 py-3 px-6 rounded-full font-bold transition-all ${
+                        !isMonthly ? 'bg-white text-[#005FA1]' : 'text-white'
+                      }`}
+                    >
+                      One Time
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsMonthly(true)}
+                      className={`flex-1 py-3 px-6 rounded-full font-bold transition-all ${
+                        isMonthly ? 'bg-white text-[#005FA1]' : 'text-white'
+                      }`}
+                    >
+                      Monthly
+                    </button>
+                  </div>
+
+                  {/* Quick Amount Selection */}
+                  <div>
+                    <label className="block text-lg font-semibold mb-3">Select Amount</label>
+                    <div className="grid grid-cols-2 gap-3">
+                      {[
+                        { amount: 1000, description: "provides a week's worth of meals for 5 children" },
+                        { amount: 5000, description: "helps cover school tuition, books and uniforms" },
+                        { amount: 25000, description: "supports medical care, hygiene and personal needs for a month" },
+                        { amount: 66000, description: "sponsors one child's complete care for an entire year" }
+                      ].map((item) => (
+                        <button
+                          key={item.amount}
+                          type="button"
+                          onClick={() => handleAmountSelect(item.amount.toString())}
+                          className={`py-3 px-4 rounded-xl font-bold transition-all text-left ${
+                            selectedAmount === item.amount.toString()
+                              ? 'bg-white text-[#005FA1]'
+                              : 'bg-white/20 text-white hover:bg-white/30'
+                          }`}
+                        >
+                          <div className="text-lg">{currencySymbol}{item.amount.toLocaleString()}</div>
+                          <div className="text-xs font-normal mt-1">{item.description}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Custom Amount */}
+                  <div>
+                    <label htmlFor="customAmount" className="block text-lg font-semibold mb-3">
+                      Or enter custom amount
+                    </label>
+                    <input
+                      type="number"
+                      id="customAmount"
+                      value={donationAmount}
+                      onChange={(e) => {
+                        setDonationAmount(e.target.value);
+                        setSelectedAmount("");
+                      }}
+                      placeholder={`Enter amount in ${currencySymbol}`}
+                      className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    className="w-full bg-white text-[#005FA1] font-bold py-4 px-8 rounded-xl hover:bg-gray-100 transition-colors text-lg"
+                  >
+                    {isMonthly ? 'Start Monthly Donation' : 'Donate Now'}
+                  </button>
+
+                  <p className="text-sm text-white/80 text-center">
+                    Your donation is secure and tax-deductible. We'll send you a receipt via email.
+                  </p>
+                </form>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Donation Form */}
-      <section className="py-16">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-lg p-8 md:p-10">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#005FA1] mb-4">
-                Choose Your Donation
-              </h2>
-              <p className="text-lg text-gray-600">
-                Select an amount and frequency that works for you
-              </p>
-            </div>
-
-            {/* Frequency Toggle */}
-            <div className="flex justify-center gap-4 mb-8">
-              <button
-                className={`px-6 py-3 rounded-full text-lg font-semibold border-2 transition-colors ${
-                  frequency === "monthly" 
-                    ? "bg-[#005FA1] text-white border-[#005FA1]" 
-                    : "bg-white text-gray-700 border-gray-300 hover:border-[#005FA1]"
-                }`}
-                onClick={() => setFrequency("monthly")}
-              >
-                Monthly
-              </button>
-              <button
-                className={`px-6 py-3 rounded-full text-lg font-semibold border-2 transition-colors ${
-                  frequency === "onetime" 
-                    ? "bg-[#005FA1] text-white border-[#005FA1]" 
-                    : "bg-white text-gray-700 border-gray-300 hover:border-[#005FA1]"
-                }`}
-                onClick={() => setFrequency("onetime")}
-              >
-                One Time
-              </button>
-            </div>
-
-            {/* Amount Selection */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-              {amounts.map((amount) => (
-                <button
-                  key={amount}
-                  className={`p-4 rounded-xl border-2 transition-all ${
-                    selectedAmount === amount
-                      ? "bg-[#005FA1] text-white border-[#005FA1] scale-105"
-                      : "bg-white text-gray-700 border-gray-300 hover:border-[#005FA1] hover:scale-105"
-                  }`}
-                  onClick={() => setSelectedAmount(amount)}
+              
+              {/* International Donor Link */}
+              <div className="mt-6 text-center">
+                <a 
+                  href="/international-donate" 
+                  className="inline-block bg-[#005FA1] text-white font-bold py-4 px-8 rounded-xl hover:bg-[#00395c] transition-colors text-lg"
                 >
-                  <div className={`text-2xl font-bold ${currencySymbolClass}`}>
-                    {currencySymbol}{amount}
-                  </div>
-                  <div className="text-sm mt-1">
-                    {amount === 100 && "Basic care"}
-                    {amount === 250 && "Education support"}
-                    {amount === 500 && "Healthcare & nutrition"}
-                    {amount === 1000 && "Complete care"}
-                  </div>
-                </button>
-              ))}
+                  International donor? Please Click here
+                </a>
+              </div>
             </div>
 
-            {/* Custom Amount */}
-            <div className="mb-8">
-              <label className="block text-lg font-semibold text-gray-700 mb-2">
-                Or enter a custom amount:
-              </label>
-              <input
-                type="number"
-                min="1"
-                placeholder="Enter amount"
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:outline-none focus:border-[#005FA1] text-lg"
-                onChange={(e) => setSelectedAmount(Number(e.target.value))}
-              />
-            </div>
+            {/* Left Side - Content - Second on mobile, first on desktop */}
+            <div className="text-gray-800 space-y-8 order-2 lg:order-1">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-[#005FA1] mb-6">
+                  Your Impact Makes a Difference
+                </h2>
+                
+                <p className="text-lg md:text-xl leading-relaxed text-gray-700">
+                  This isn't just about food or shelter—it's about meeting the basic human needs every child deserves. It's about restoring dignity, offering hope and building the foundation for a brighter future.
+                </p>
+              </div>
 
-            {/* Donate Button */}
-            <div className="text-center">
-              <button
-                className="bg-[#005FA1] text-white font-bold py-4 px-8 rounded-xl text-xl hover:bg-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-[#005FA1] focus:ring-offset-2"
-                onClick={handleDonateClick}
-              >
-                Donate {frequency === "monthly" ? "Monthly" : "Once"} <span className={currencySymbolClass}>{currencySymbol}{selectedAmount}</span>
-              </button>
-            </div>
+              {/* Impact Cards */}
+              {loading ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="bg-gray-200 p-6 rounded-2xl animate-pulse">
+                      <div className="h-8 bg-gray-300 rounded mb-2"></div>
+                      <div className="h-4 bg-gray-300 rounded"></div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {impactCards.map((card, index) => (
+                    <div key={index} className="bg-gradient-to-br from-[#e0f0fa] to-[#b3d9f2] p-6 rounded-2xl border-l-4 border-[#005FA1]">
+                      <div className="text-2xl md:text-3xl font-bold text-[#005FA1] mb-2">
+                        {currencySymbol}{card.amount.toLocaleString()}
+                      </div>
+                      <p className="text-lg font-semibold text-gray-800">{card.description}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
 
-            {/* International Donor Link */}
-            <div className="text-center mt-6">
-              <button
-                className="text-[#005FA1] font-semibold hover:underline focus:outline-none focus:ring-2 focus:ring-[#005FA1] rounded"
-                onClick={() => window.open('/international-donate', '_blank')}
-              >
-                International donor? Please Click here.
-              </button>
+              {/* Call to Action */}
+              <div className="text-center space-y-4">
+                <p className="text-xl md:text-2xl font-semibold text-gray-800">
+                  Together, we can turn abandoned stories into empowered futures.
+                </p>
+                <p className="text-lg text-gray-700">
+                  Thank you for being part of the solution. Every gift you give is an act of compassion—and a step toward lifelong change.
+                </p>
+              </div>
             </div>
           </div>
         </div>
