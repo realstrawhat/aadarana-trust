@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { detectUserLocation, redirectToInternationalDonate } from "../utils/locationUtils";
+import { getCurrencySymbol, currencySymbolClass } from "../utils/currencyUtils";
 
 const currencyMap = {
   US: { symbol: "$", amounts: [10, 25, 50, 100] },
@@ -17,6 +18,7 @@ export default function DonateSection() {
   const [amounts, setAmounts] = useState<number[]>([10, 25, 50, 100]);
   const [loading, setLoading] = useState(true);
   const [isIndian, setIsIndian] = useState(true);
+  const [useFallback, setUseFallback] = useState(false);
 
   useEffect(() => {
     async function fetchCountry() {
@@ -32,7 +34,8 @@ export default function DonateSection() {
         if (euCountries.includes(country)) countryCode = "EU";
         
         const config = currencyMap[countryCode as keyof typeof currencyMap] || currencyMap["US"];
-        setCurrencySymbol(config.symbol);
+        const symbol = getCurrencySymbol(countryCode, useFallback);
+        setCurrencySymbol(symbol);
         setAmounts(config.amounts);
         setSelectedAmount(config.amounts[0]);
       } catch (error) {
@@ -46,7 +49,7 @@ export default function DonateSection() {
       }
     }
     fetchCountry();
-  }, []);
+  }, [useFallback]);
 
   const handleDonateClick = () => {
     if (!isIndian) {
@@ -97,7 +100,7 @@ export default function DonateSection() {
               onClick={() => setSelectedAmount(amt)}
               aria-pressed={selectedAmount === amt}
             >
-              {currencySymbol}{amt}
+              <span className={currencySymbolClass}>{currencySymbol}{amt}</span>
             </button>
           ))}
         </div>
@@ -113,7 +116,7 @@ export default function DonateSection() {
           className="mt-4 bg-[#005FA1] text-white font-bold py-2 rounded-lg hover:bg-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-[#005FA1]"
           onClick={handleDonateClick}
         >
-          Donate {frequency === "monthly" ? "Monthly" : "Once"} {currencySymbol}{selectedAmount}
+          Donate {frequency === "monthly" ? "Monthly" : "Once"} <span className={currencySymbolClass}>{currencySymbol}{selectedAmount}</span>
         </button>
       </div>
       {/* Right Side */}
