@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const whyData = [
   {
@@ -47,9 +48,11 @@ export default function WhySection() {
           </div>
         ))}
       </div>
-      <button className="bg-[#e0f0fa] text-[#00395c] font-bold text-lg px-10 py-4 rounded-lg shadow hover:bg-[#b3d9f2] hover:text-[#00395c] transition-colors focus:outline-none focus:ring-2 focus:ring-[#005FA1]">
-        Learn More
-      </button>
+      <Link href="/why-orphanage">
+        <button className="bg-[#e0f0fa] text-[#00395c] font-bold text-lg px-10 py-4 rounded-lg shadow hover:bg-[#b3d9f2] hover:text-[#00395c] transition-colors focus:outline-none focus:ring-2 focus:ring-[#005FA1]">
+          Learn More
+        </button>
+      </Link>
     </section>
   );
 } 

@@ -5,6 +5,7 @@ import ImpactSection from '../../components/ImpactSection';
 import QuoteSection from '../../components/QuoteSection';
 import Footer from '../../components/Footer';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const heroWords = [
   "Dignity",
@@ -73,7 +74,9 @@ function CustomChildrenHeroSection() {
           </span>
         </div>
         <p className="text-white text-2xl md:text-3xl mb-8 font-medium drop-shadow-lg">The solution is simple. The impact is lifelong.</p>
-        <button className="bg-purple-600 text-white font-bold px-10 py-4 rounded-full shadow-xl hover:bg-purple-700 transition-colors text-xl">Donate Now</button>
+        <Link href="/donate">
+          <button className="bg-purple-600 text-white font-bold px-10 py-4 rounded-full shadow-xl hover:bg-purple-700 transition-colors text-xl">Donate Now</button>
+        </Link>
       </div>
     </section>
   );

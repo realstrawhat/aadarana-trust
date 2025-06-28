@@ -2,6 +2,7 @@
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Image from "next/image";
+import Link from "next/link";
 import AnimatedText from "../../components/AnimatedText";
 import { useState } from "react";
 import Carousel from '../../components/Carousel';
@@ -18,28 +19,24 @@ const services = [
 
 const impactInfo = [
   {
-    title: "Safety & Shelter",
-    desc: "Children live in clean, separate homes for boys and girls, equipped with beds, toilets, hygiene products and water storage. It's not a hostel—it's a home."
-  },
-  {
-    title: "Nutritious Food",
-    desc: "Our children are served three meals a day, designed by a nutritionist to include fruits, milk, eggs and traditional porridge—building strength, immunity and growth."
+    title: "Safe & Loving Home",
+    desc: "We provide a secure, nurturing environment where children feel valued, protected, and loved. Our home becomes their sanctuary—a place where they can heal, grow, and thrive."
   },
   {
     title: "Quality Education",
-    desc: "All children attend private schools and colleges. Evening tuition and life skills classes ensure they are confident and well-rounded."
+    desc: "Education is the key to breaking the cycle of poverty. We ensure every child receives proper schooling, including books, uniforms, and tuition support to help them reach their full potential."
   },
   {
-    title: "Healthcare & Hygiene",
-    desc: "We provide regular medical checkups, first-aid, dental and eye care, and hygiene essentials—like soaps, oils and mosquito repellents."
+    title: "Healthcare & Nutrition",
+    desc: "We provide regular medical check-ups, proper nutrition, and hygiene education. Healthy children are happy children who can focus on learning and growing."
   },
   {
-    title: "Clothing & Essentials",
-    desc: "Each child receives school uniforms, casual clothes, slippers, sweaters, blankets, stationery and hygiene kits—giving them dignity and identity."
+    title: "Emotional Support",
+    desc: "Our caregivers provide the emotional stability and guidance that every child needs. We help them process trauma, build confidence, and develop healthy relationships."
   },
   {
-    title: "Emotional Support & Values",
-    desc: "Children receive counseling, moral education and spiritual care. We aim to rebuild not just their future—but their confidence, behavior and values."
+    title: "Life Skills & Values",
+    desc: "We teach essential life skills, moral values, and character development. Children learn responsibility, empathy, and the importance of giving back to society."
   },
   {
     title: "Creativity & Celebration",
@@ -69,7 +66,9 @@ export default function WhyChildrenHomePage() {
               Childhood is <AnimatedText words={["Dignity", "Joyful", "Stability", "Learning", "Safety", "Progress"]} />
             </h1>
             <p className="text-white text-2xl md:text-3xl mb-8 font-medium drop-shadow-lg">The solution is simple. The impact is lifelong.</p>
-            <button className="bg-[#005FA1] text-white font-bold px-10 py-4 rounded-full shadow-xl hover:bg-[#b3d9f2] transition-colors text-xl">Donate Now</button>
+            <Link href="/donate">
+              <button className="bg-[#005FA1] text-white font-bold px-10 py-4 rounded-full shadow-xl hover:bg-[#b3d9f2] transition-colors text-xl">Donate Now</button>
+            </Link>
           </div>
         </section>
         {/* Impactful Intro Section */}
@@ -216,7 +215,9 @@ export default function WhyChildrenHomePage() {
                 </div>
               ))}
             </div>
-            <button className="bg-[#005FA1] text-white font-bold px-12 py-6 rounded-full shadow-xl hover:bg-[#b3d9f2] transition-colors text-2xl mx-auto w-full max-w-xs block">Donate Now</button>
+            <Link href="/donate">
+              <button className="bg-[#005FA1] text-white font-bold px-12 py-6 rounded-full shadow-xl hover:bg-[#b3d9f2] transition-colors text-2xl mx-auto w-full max-w-xs block">Donate Now</button>
+            </Link>
           </div>
         </section>
         {/* Quote Section */}

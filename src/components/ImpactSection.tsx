@@ -1,6 +1,7 @@
 "use client";
 
 import ParticlesClientOnly from "./ParticlesClientOnly";
+import Link from "next/link";
 
 export default function ImpactSection() {
   return (
@@ -15,9 +16,11 @@ export default function ImpactSection() {
             At Aadarana Trust, we believe that no child should suffer for the circumstances they were born into. We care for orphaned, abandoned, and vulnerable children—offering them not just survival, but a home filled with warmth, learning, and hope. When a child receives food, education, and love, everything changes. They dream again. They learn. They grow into citizens who give back. This isn't just about charity. It's about transformation. Every meal shared, every book opened, every blanket provided—it all adds up to a life no longer defined by fear or neglect.
           </p>
           <div className="flex justify-center md:justify-start">
-            <button className="bg-white text-[#005FA1] font-bold px-10 py-4 rounded-lg shadow-lg hover:bg-[#e0f0fa] transition-colors focus:outline-none focus:ring-2 focus:ring-white text-lg md:text-xl">
-              See Impact
-            </button>
+            <Link href="/impact">
+              <button className="bg-white text-[#005FA1] font-bold px-10 py-4 rounded-lg shadow-lg hover:bg-[#e0f0fa] transition-colors focus:outline-none focus:ring-2 focus:ring-white text-lg md:text-xl">
+                See Impact
+              </button>
+            </Link>
           </div>
         </div>
       </div>
