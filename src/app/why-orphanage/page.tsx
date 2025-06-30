@@ -7,16 +7,6 @@ import AnimatedText from "../../components/AnimatedText";
 import { useState } from "react";
 import Carousel from '../../components/Carousel';
 
-const services = [
-  "Safety & Shelter",
-  "Nutritious Food",
-  "Quality Education",
-  "Healthcare & Hygiene",
-  "Clothing & Essentials",
-  "Emotional Support & Values",
-  "Creativity & Celebration"
-];
-
 const impactInfo = [
   {
     title: "Safe & Loving Home",
@@ -205,7 +195,7 @@ export default function WhyChildrenHomePage() {
           <div className="flex-1 flex flex-col gap-8 max-w-xl w-full items-center md:items-start order-2 md:order-none md:pr-8">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-[#005FA1] text-center md:text-left">How to Uplift Vulnerable Children</h2>
             <p className="text-xl md:text-2xl text-gray-700 font-semibold mb-6 text-left">
-              At Aadarana Trust, we believe that no child should suffer for the circumstances they were born into. We care for orphaned, abandoned, and vulnerable children—offering them not just survival, but a home filled with warmth, learning, and hope. When a child receives food, education, and love, everything changes. They dream again. They learn. They grow into citizens who give back. This isn't just about charity. It's about transformation. Every meal shared, every book opened, every blanket provided—it all adds up to a life no longer defined by fear or neglect.
+              At Aadarana Trust, we believe that no child should suffer for the circumstances they were born into. We care for orphaned, abandoned, and vulnerable children—offering them not just survival, but a home filled with warmth, learning, and hope. When a child receives food, education, and love, everything changes. They dream again. They learn. They grow into citizens who give back. This isn&apos;t just about charity. It&apos;s about transformation. Every meal shared, every book opened, every blanket provided—it all adds up to a life no longer defined by fear or neglect.
             </p>
             <div className="grid grid-cols-4 gap-4 md:gap-8 mb-6 w-full">
               {impactIcons.map((item, i) => (

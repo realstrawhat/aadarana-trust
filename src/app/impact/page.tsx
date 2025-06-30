@@ -24,13 +24,6 @@ const stats = [
   }
 ];
 
-const statColors = [
-  "bg-[#005FA1] text-white",
-  "bg-[#e0f0fa] text-[#00395c]",
-  "bg-[#005FA1] text-white",
-  "bg-[#e0f0fa] text-[#00395c]",
-];
-
 const services = [
   "Long-term residential care",
   "Formal education in private schools",
@@ -237,7 +230,7 @@ export default function ImpactPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               {testimonials.map((testimonial, index) => (
                 <div key={index} className="bg-gradient-to-r from-[#005FA1] to-[#00395c] text-white p-8 rounded-2xl shadow-lg flex flex-col h-full">
-                  <span className="text-7xl text-white opacity-20 font-serif leading-none">"</span>
+                  <span className="text-7xl text-white opacity-20 font-serif leading-none">&quot;</span>
                   <p className="text-xl italic font-semibold text-white mb-6 flex-grow">
                     {testimonial.quote}
                   </p>

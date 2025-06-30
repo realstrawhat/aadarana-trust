@@ -33,5 +33,6 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.10",
     "typescript": "^5"
-  }
+  },
+  "type": "module"
 }

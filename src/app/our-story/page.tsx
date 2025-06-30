@@ -2,7 +2,6 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import ParticlesClientOnly from "../../components/ParticlesClientOnly";
 
 // Global style to remove footer top margin/padding
 if (typeof window !== 'undefined') {
