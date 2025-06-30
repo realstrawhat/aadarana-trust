@@ -1,8 +1,38 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { detectUserLocation, redirectToInternationalDonate } from "../utils/locationUtils";
 import Script from "next/script";
+import { detectUserLocation, redirectToInternationalDonate } from "../utils/locationUtils";
+
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  image?: string;
+  order_id?: string;
+  handler: (response: { razorpay_payment_id: string; }) => void;
+  prefill?: {
+    name?: string;
+    email?: string;
+    contact?: string;
+  };
+  notes?: Record<string, string>;
+  theme?: {
+    color?: string;
+  };
+}
+
+interface RazorpayInstance {
+  open: () => void;
+}
+
+interface RazorpayWindow extends Window {
+  Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
+}
+
+declare const window: RazorpayWindow;
 
 const currencyMap = {
   US: { symbol: "$", amounts: [10, 25, 50, 100] },
@@ -32,16 +62,17 @@ export default function DonateSection() {
         let countryCode = country;
         if (euCountries.includes(country)) countryCode = "EU";
         
-        const config = currencyMap[countryCode as keyof typeof currencyMap] || currencyMap["US"];
+        const config = currencyMap[countryCode as keyof typeof currencyMap] || currencyMap["IN"];
         setCurrencySymbol(config.symbol);
         setAmounts(config.amounts);
         setSelectedAmount(config.amounts[0]);
       } catch (error) {
         console.warn("Location detection failed in DonateSection, using defaults:", error);
+        // Default to non-Indian (USD) if detection fails, to be safe.
         setCurrencySymbol("$");
         setAmounts([10, 25, 50, 100]);
         setSelectedAmount(10);
-        setIsIndian(false); // Default to non-Indian if detection fails
+        setIsIndian(false);
       } finally {
         setLoading(false);
       }
@@ -49,33 +80,39 @@ export default function DonateSection() {
     fetchCountry();
   }, []);
 
-  // Razorpay handler for Indian users
-  const handleRazorpay = () => {
-    if (!selectedAmount || selectedAmount < 1) return;
-    const options = {
-      key: "rzp_test_6N1YIZMdmzothk",
-      amount: selectedAmount * 100, // in paise
-      currency: "INR",
-      name: "Aadarana Trust",
-      description: `Donation (${frequency})`,
-      image: "/images/logo.png",
-      handler: function (response: any) {
-        alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
-      },
-      prefill: {},
-      theme: { color: "#005FA1" },
-    };
-    // @ts-expect-error
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  };
-
   const handleDonateClick = () => {
     if (!isIndian) {
       redirectToInternationalDonate();
-    } else {
-      handleRazorpay();
+      return;
     }
+
+    if (!selectedAmount || selectedAmount <= 0) {
+      alert("Please select or enter a valid donation amount.");
+      return;
+    }
+
+    const options = {
+      key: 'rzp_test_6N1YIZMdmzothk',
+      amount: selectedAmount * 100, // amount in the smallest currency unit
+      currency: 'INR',
+      name: 'Aadarana Trust',
+      description: 'Donate to support children',
+      handler: function (response: { razorpay_payment_id: string }) {
+        alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+        // You can handle the success response here
+      },
+      prefill: {
+        name: 'Aadarana Donor',
+        email: 'test@example.com',
+        contact: '9999999999',
+      },
+      theme: {
+        color: '#005FA1',
+      },
+    };
+
+    const rzp = new (window as unknown as RazorpayWindow).Razorpay(options);
+    rzp.open();
   };
 
   if (loading) {
@@ -92,8 +129,8 @@ export default function DonateSection() {
   return (
     <>
       <Script
+        id="razorpay-checkout-js-donatesection"
         src="https://checkout.razorpay.com/v1/checkout.js"
-        strategy="afterInteractive"
       />
       <section className="w-full flex flex-col md:flex-row items-center justify-center gap-12 py-20">
         {/* Donate Box */}

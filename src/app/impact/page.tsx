@@ -3,25 +3,24 @@
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 
 const stats = [
   {
-    number: "65+",
-    description: "Children under full-time care (From just 8 children in 2013 to 65+ today)"
+    value: "65+",
+    label: "Children Under Care",
   },
   {
-    number: "100+",
-    description: "Volunteers and supporters have given their time, love and resources"
+    value: "100+",
+    label: "Volunteers & Supporters",
   },
   {
-    number: "12+",
-    description: "Years of service to some of India's most vulnerable children"
+    value: "12+",
+    label: "Years of Service",
   },
   {
-    number: "2",
-    description: "Dedicated children's homes Separate, safe spaces for boys and girls"
-  }
+    value: "2",
+    label: "Children's Homes",
+  },
 ];
 
 const services = [
@@ -56,52 +55,6 @@ const testimonials = [
     author: "Mr. Gangadhar, Volunteer"
   }
 ];
-
-// Animated Counter Component
-function AnimatedCounter({ target, suffix = "", duration = 2000 }: { target: string; suffix?: string; duration?: number }) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    let startTime: number | null = null;
-    const startValue = 0;
-    const endValue = parseInt(target.replace(/\D/g, '')); // Extract number from string like "65+"
-
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-      
-      const currentCount = Math.floor(startValue + (endValue - startValue) * progress);
-      setCount(currentCount);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          requestAnimationFrame(animate);
-          observer.disconnect();
-        }
-      });
-    });
-
-    // Observe the parent element
-    const element = document.querySelector('[data-counter]');
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => observer.disconnect();
-  }, [target, duration]);
-
-  return (
-    <span className="text-5xl font-extrabold mb-4">
-      {count}{suffix}
-    </span>
-  );
-}
 
 export default function ImpactPage() {
   return (
@@ -152,17 +105,25 @@ export default function ImpactPage() {
         </section>
 
         {/* Stats Section */}
-        <section className="max-w-7xl mx-auto py-16 md:py-24 px-4" data-counter>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-              <div key={index} className="bg-gradient-to-r from-[#005FA1] to-[#00395c] text-white p-8 rounded-2xl shadow-lg flex flex-col items-center text-center h-full">
-                <AnimatedCounter 
-                  target={stat.number} 
-                  suffix={stat.number.includes('+') ? '+' : ''} 
-                />
-                <p className="text-base font-medium opacity-90">{stat.description}</p>
-              </div>
+        <section className="bg-white py-16 md:py-24">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {stats.map((stat, idx) => (
+                <div
+                  key={idx}
+                  className="bg-gray-50 rounded-2xl p-8 text-center shadow-lg border border-gray-200 hover:shadow-xl transition-shadow"
+                >
+                  <div
+                    className={`text-5xl md:text-6xl font-extrabold mb-4 text-[#005FA1]`}
+                  >
+                    {stat.value}
+                  </div>
+                  <div className="text-xl font-bold text-gray-800">
+                    {stat.label}
+                  </div>
+                </div>
               ))}
+            </div>
           </div>
         </section>
 

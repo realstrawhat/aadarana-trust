@@ -44,7 +44,7 @@ export default function ContactPage() {
             Get In Touch
           </h1>
           <p className="text-white text-lg md:text-2xl font-medium drop-shadow-md max-w-3xl mx-auto">
-            Ready to make a difference? Let&apos;s connect and create lasting impact together.
+            Ready to make a difference? Let's connect and create lasting impact together.
           </p>
         </div>
       </section>

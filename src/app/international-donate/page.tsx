@@ -40,7 +40,7 @@ const currencyMap: Record<string, { symbol: string; name: string }> = {
 };
 
 export default function InternationalDonatePage() {
-  const [country, setCountry] = useState("IN");
+  const [, setCountry] = useState("IN");
   const [currency, setCurrency] = useState(currencyMap.IN);
   const [impacts, setImpacts] = useState(impactData.IN);
 

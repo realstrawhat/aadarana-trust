@@ -2,8 +2,38 @@
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { useState, useEffect } from "react";
-import { detectUserLocation, redirectToInternationalDonate } from "../../utils/locationUtils";
 import Script from "next/script";
+import { detectUserLocation, redirectToInternationalDonate } from "../../utils/locationUtils";
+
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  image?: string;
+  order_id?: string;
+  handler: (response: { razorpay_payment_id: string; }) => void;
+  prefill?: {
+    name?: string;
+    email?: string;
+    contact?: string;
+  };
+  notes?: Record<string, string>;
+  theme?: {
+    color?: string;
+  };
+}
+
+interface RazorpayInstance {
+  open: () => void;
+}
+
+interface RazorpayWindow extends Window {
+  Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
+}
+
+declare const window: RazorpayWindow;
 
 const currencyMap = {
   US: { 
@@ -77,9 +107,10 @@ export default function DonatePage() {
         setImpactCards(config.impactCards);
       } catch (error) {
         console.warn("Location detection failed in donate page, using defaults:", error);
+        // If detection fails, default to Indian settings and remain on the page.
         setCurrencySymbol("₹");
         setImpactCards(currencyMap.IN.impactCards);
-        setIsIndian(true); // Default to Indian if detection fails
+        setIsIndian(true);
       } finally {
         setLoading(false);
       }
@@ -87,41 +118,50 @@ export default function DonatePage() {
     fetchCountry();
   }, []);
 
+  const handleDonate = async () => {
+    if (!isIndian) {
+      redirectToInternationalDonate();
+      return;
+    }
+
+    const amountInPaise = parseInt(donationAmount) * 100;
+    if (isNaN(amountInPaise) || amountInPaise <= 0) {
+      alert("Please enter a valid donation amount.");
+      return;
+    }
+
+    const options = {
+      key: 'rzp_test_6N1YIZMdmzothk',
+      amount: amountInPaise,
+      currency: 'INR',
+      name: 'Aadarana Trust',
+      description: 'Donate to support children',
+      handler: function (response: { razorpay_payment_id: string }) {
+        alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+        // You can handle the success response here (e.g., send to your backend)
+      },
+      prefill: {
+        name: 'Aadarana Donor',
+        email: 'test@example.com',
+        contact: '9999999999',
+      },
+      theme: {
+        color: '#005FA1',
+      },
+    };
+
+    const rzp = new (window as unknown as RazorpayWindow).Razorpay(options);
+    rzp.open();
+  };
+
   const handleAmountSelect = (amount: string) => {
     setSelectedAmount(amount);
     setDonationAmount(amount);
   };
 
-  // Razorpay handler for Indian users
-  const handleRazorpay = () => {
-    const amount = Number(donationAmount);
-    if (!amount || amount < 1) return;
-    const options = {
-      key: "rzp_test_6N1YIZMdmzothk",
-      amount: amount * 100, // in paise
-      currency: "INR",
-      name: "Aadarana Trust",
-      description: `Donation (${isMonthly ? 'Monthly' : 'One Time'})`,
-      image: "/images/logo.png",
-      handler: function (response: any) {
-        alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
-      },
-      prefill: {},
-      theme: { color: "#005FA1" },
-    };
-    // @ts-expect-error
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (isIndian) {
-      handleRazorpay();
-    } else {
-      // Handle donation submission here for international
-      console.log("Donation submitted:", { amount: donationAmount, isMonthly });
-    }
+    handleDonate();
   };
 
   // Show loading while checking location
@@ -143,8 +183,8 @@ export default function DonatePage() {
   return (
     <div className="overflow-x-hidden">
       <Script
+        id="razorpay-checkout-js"
         src="https://checkout.razorpay.com/v1/checkout.js"
-        strategy="afterInteractive"
       />
       <Navbar />
       
