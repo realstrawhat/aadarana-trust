@@ -43,7 +43,6 @@ const currencyMap = {
 
 export default function DonateSection() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
-  const [frequency, setFrequency] = useState("monthly");
   const [currencySymbol, setCurrencySymbol] = useState("$");
   const [amounts, setAmounts] = useState<number[]>([10, 25, 50, 100]);
   const [loading, setLoading] = useState(true);
@@ -132,26 +131,10 @@ export default function DonateSection() {
         id="razorpay-checkout-js-donatesection"
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
-      <section className="w-full flex flex-col md:flex-row items-center justify-center gap-12 py-20">
+      <section className="w-full flex flex-col md:flex-row items-center justify-center gap-12 py-20 bg-gray-100">
         {/* Donate Box */}
         <div className="bg-white rounded-2xl shadow-lg p-10 flex flex-col gap-8 w-full max-w-md md:max-w-lg min-h-[400px] text-lg">
           <h2 className="text-xl font-bold text-[#005FA1] mb-2">Donate</h2>
-          <div className="flex gap-2 mb-4">
-            <button
-              className={`px-3 py-1 rounded-full text-sm font-semibold border ${frequency === "monthly" ? "bg-[#005FA1] text-white" : "bg-gray-100 text-gray-700"}`}
-              onClick={() => setFrequency("monthly")}
-              aria-pressed={frequency === "monthly"}
-            >
-              Monthly
-            </button>
-            <button
-              className={`px-3 py-1 rounded-full text-sm font-semibold border ${frequency === "onetime" ? "bg-[#005FA1] text-white" : "bg-gray-100 text-gray-700"}`}
-              onClick={() => setFrequency("onetime")}
-              aria-pressed={frequency === "onetime"}
-            >
-              One Time
-            </button>
-          </div>
           <div className="flex flex-wrap gap-2 mb-4">
             {amounts.map((amt) => (
               <button
@@ -176,7 +159,7 @@ export default function DonateSection() {
             className="mt-4 bg-[#005FA1] text-white font-bold py-2 rounded-lg hover:bg-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-[#005FA1]"
             onClick={handleDonateClick}
           >
-            Donate {frequency === "monthly" ? "Monthly" : "Once"} {currencySymbol}{selectedAmount}
+            Donate {currencySymbol}{selectedAmount}
           </button>
         </div>
         {/* Right Side */}

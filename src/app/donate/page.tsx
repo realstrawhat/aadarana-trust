@@ -79,7 +79,6 @@ export default function DonatePage() {
   const [impactCards, setImpactCards] = useState(currencyMap.IN.impactCards);
   const [loading, setLoading] = useState(true);
   const [donationAmount, setDonationAmount] = useState("");
-  const [isMonthly, setIsMonthly] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState("");
   const [isIndian, setIsIndian] = useState(true);
 
@@ -219,28 +218,6 @@ export default function DonatePage() {
                 <h2 className="text-3xl font-bold mb-6 text-center">Make a Donation</h2>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Donation Type Toggle */}
-                  <div className="flex bg-white/20 rounded-full p-1">
-                    <button
-                      type="button"
-                      onClick={() => setIsMonthly(false)}
-                      className={`flex-1 py-3 px-6 rounded-full font-bold transition-all ${
-                        !isMonthly ? 'bg-white text-[#005FA1]' : 'text-white'
-                      }`}
-                    >
-                      One Time
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setIsMonthly(true)}
-                      className={`flex-1 py-3 px-6 rounded-full font-bold transition-all ${
-                        isMonthly ? 'bg-white text-[#005FA1]' : 'text-white'
-                      }`}
-                    >
-                      Monthly
-                    </button>
-                  </div>
-
                   {/* Quick Amount Selection */}
                   <div>
                     <label className="block text-lg font-semibold mb-3">Select Amount</label>
@@ -291,7 +268,7 @@ export default function DonatePage() {
                     type="submit"
                     className="w-full bg-white text-[#005FA1] font-bold py-4 px-8 rounded-xl hover:bg-gray-100 transition-colors text-lg"
                   >
-                    {isMonthly ? 'Start Monthly Donation' : 'Donate Now'}
+                    Donate Now
                   </button>
 
                   <p className="text-sm text-white/80 text-center">

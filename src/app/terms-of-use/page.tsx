@@ -1,14 +1,14 @@
 "use client";
 
-import Navbar from "../../components/Navbar";
+import WhiteNavbar from "../../components/WhiteNavbar";
 import Footer from "../../components/Footer";
 
 export default function TermsOfUsePage() {
   return (
     <div className="bg-white min-h-screen">
-      <Navbar />
+      <WhiteNavbar />
       <main className="max-w-4xl mx-auto px-4 py-16 md:py-24 text-gray-800 leading-relaxed">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#005FA1] mb-12 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold text-[#005FA1] mb-12 text-center pt-24">
           Terms, Policies & Conditions
         </h1>
 
