@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   authors: [{ name: "Aadarana Trust" }],
   creator: "Aadarana Trust",
   publisher: "Aadarana Trust",
+  icons: {
+    icon: '/images/gallery/favicon-32x32.png',
+    shortcut: '/images/gallery/favicon-32x32.png',
+    apple: '/images/gallery/favicon-32x32.png',
+  },
   formatDetection: {
     email: false,
     address: false,

@@ -91,8 +91,8 @@ export default function DonateSection() {
       return;
     }
 
-    const options = {
-      key: 'rzp_test_6N1YIZMdmzothk',
+    const options: RazorpayOptions = {
+      key: 'rzp_live_sF65PhDjCbaFNh',
       amount: selectedAmount * 100, // amount in the smallest currency unit
       currency: 'INR',
       name: 'Aadarana Trust',
