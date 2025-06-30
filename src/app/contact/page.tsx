@@ -6,11 +6,11 @@ import { useState } from "react";
 const involvementOptions = [
   {
     title: "Sponsor a Child",
-    desc: "Support one child&apos;s complete care for a year—just ₹66,000. Your sponsorship provides food, clothing, healthcare, school fees, books, and love."
+    desc: "Support one child's complete care for a year—just ₹66,000. Your sponsorship provides food, clothing, healthcare, school fees, books, and love."
   },
   {
     title: "Celebrate with Purpose",
-    desc: "Turn your birthday, anniversary, or special day into a celebration of kindness. Bring meals, gifts, or simply joy to the children at Aadarana Children&apos;s Home."
+    desc: "Turn your birthday, anniversary, or special day into a celebration of kindness. Bring meals, gifts, or simply joy to the children at Aadarana Children's Home."
   },
   {
     title: "Donate in Kind",
@@ -18,7 +18,7 @@ const involvementOptions = [
   },
   {
     title: "Volunteer With Us",
-    desc: "Use your talents to teach, tutor, mentor, or entertain. Whether it&apos;s one day or every week, your time will leave a lasting impression."
+    desc: "Use your talents to teach, tutor, mentor, or entertain. Whether it's one day or every week, your time will leave a lasting impression."
   },
   {
     title: "Corporate & CSR Partnerships",
@@ -157,7 +157,7 @@ export default function ContactPage() {
                     required
                     rows={6}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#005FA1] focus:border-transparent resize-none"
-                    placeholder="Tell us more about how you&apos;d like to get involved..."
+                    placeholder="Tell us more about how you'd like to get involved..."
                   ></textarea>
                 </div>
 
@@ -206,7 +206,7 @@ export default function ContactPage() {
                     rel="noopener noreferrer"
                     className="text-lg leading-relaxed hover:text-[#005FA1] transition-colors cursor-pointer"
                   >
-                    Aadarana Trust – Children&apos;s Home<br />
+                    Aadarana Trust – Children's Home<br />
                     Plot No. 84, NRI Colony, Beside AMS MBA College Campus<br />
                     Kismathpur, Gandipet Mandal, Rangareddy District<br />
                     Hyderabad – 500086, Telangana, India

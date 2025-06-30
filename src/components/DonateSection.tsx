@@ -59,8 +59,8 @@ export default function DonateSection() {
       name: "Aadarana Trust",
       description: `Donation (${frequency})`,
       image: "/images/logo.png",
-      handler: function (response: unknown) {
-        alert("Payment successful! Payment ID: " + (response as { razorpay_payment_id: string }).razorpay_payment_id);
+      handler: function (response: any) {
+        alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
       },
       prefill: {},
       theme: { color: "#005FA1" },

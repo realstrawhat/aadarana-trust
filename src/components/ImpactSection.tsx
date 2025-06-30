@@ -13,7 +13,7 @@ export default function ImpactSection() {
         </div>
         <div className="flex-1 text-white flex flex-col gap-10">
           <p className="text-lg md:text-xl font-semibold leading-relaxed text-left">
-            At Aadarana Trust, we believe that no child should suffer for the circumstances they were born into. We care for orphaned, abandoned, and vulnerable children—offering them not just survival, but a home filled with warmth, learning, and hope. When a child receives food, education, and love, everything changes. They dream again. They learn. They grow into citizens who give back. This isn&apos;t just about charity. It&apos;s about transformation. Every meal shared, every book opened, every blanket provided—it all adds up to a life no longer defined by fear or neglect.
+            At Aadarana Trust, we believe that no child should suffer for the circumstances they were born into. We care for orphaned, abandoned, and vulnerable children—offering them not just survival, but a home filled with warmth, learning, and hope. When a child receives food, education, and love, everything changes. They dream again. They learn. They grow into citizens who give back. This isn't just about charity. It's about transformation. Every meal shared, every book opened, every blanket provided—it all adds up to a life no longer defined by fear or neglect.
           </p>
           <div className="flex justify-center md:justify-start">
             <Link href="/impact">
