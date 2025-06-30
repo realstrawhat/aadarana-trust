@@ -7,6 +7,7 @@ const navLinks = [
   { name: "Our Story", href: "/our-story" },
   { name: "Contact", href: "/contact" },
   { name: "Donate Today", href: "/donate" },
+  { name: "Terms of Use", href: "/terms-of-use" },
 ];
 
 // Optimized SVG icons for better performance
