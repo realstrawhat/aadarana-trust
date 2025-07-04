@@ -79,7 +79,7 @@ export default function DonateSection() {
     fetchCountry();
   }, []);
 
-  const handleDonateClick = () => {
+  const handleDonateClick = async () => {
     if (!isIndian) {
       redirectToInternationalDonate();
       return;
@@ -90,12 +90,30 @@ export default function DonateSection() {
       return;
     }
 
+    // Fetch order_id from backend
+    const amountInPaise = selectedAmount * 100;
+    let order_id = "";
+    try {
+      const res = await fetch("/api/razorpay-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: amountInPaise, currency: "INR" }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Order creation failed");
+      order_id = data.order_id;
+    } catch (err) {
+      alert("Failed to initiate payment. Please try again.");
+      return;
+    }
+
     const options: RazorpayOptions = {
-      key: 'rzp_live_sF65PhDjCbaFNh',
-      amount: selectedAmount * 100, // amount in the smallest currency unit
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
+      amount: amountInPaise, // amount in the smallest currency unit
       currency: 'INR',
       name: 'Aadarana Trust',
       description: 'Donate to support children',
+      order_id,
       handler: function (response: { razorpay_payment_id: string }) {
         alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
         // You can handle the success response here

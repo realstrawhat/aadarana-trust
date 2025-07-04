@@ -145,7 +145,7 @@ export default function DonatePage() {
     }
     // 2. Launch Razorpay checkout with real user data and order_id
     const options: RazorpayOptions = {
-      key: 'rzp_live_sF65PhDjCbaFNh',
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
       amount: amountInPaise,
       currency: 'INR',
       name: 'Aadarana Trust',
