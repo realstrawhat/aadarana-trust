@@ -81,6 +81,10 @@ export default function DonatePage() {
   const [donationAmount, setDonationAmount] = useState("");
   const [selectedAmount, setSelectedAmount] = useState("");
   const [isIndian, setIsIndian] = useState(true);
+  const [donorName, setDonorName] = useState("");
+  const [donorEmail, setDonorEmail] = useState("");
+  const [donorPhone, setDonorPhone] = useState("");
+  const [thankYou, setThankYou] = useState(false);
 
   useEffect(() => {
     async function fetchCountry() {
@@ -122,33 +126,50 @@ export default function DonatePage() {
       redirectToInternationalDonate();
       return;
     }
-
     const amountInPaise = parseInt(donationAmount) * 100;
     if (isNaN(amountInPaise) || amountInPaise <= 0) {
       alert("Please enter a valid donation amount.");
       return;
     }
-
+    if (!donorName || !donorEmail || !donorPhone) {
+      alert("Please fill in your name, email, and phone.");
+      return;
+    }
+    // 1. Create order on backend
+    let order_id = "";
+    try {
+      const res = await fetch("/api/razorpay-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: amountInPaise, currency: "INR" }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Order creation failed");
+      order_id = data.order_id;
+    } catch (err) {
+      alert("Failed to initiate payment. Please try again.");
+      return;
+    }
+    // 2. Launch Razorpay checkout with real user data and order_id
     const options: RazorpayOptions = {
       key: 'rzp_live_sF65PhDjCbaFNh',
       amount: amountInPaise,
       currency: 'INR',
       name: 'Aadarana Trust',
       description: 'Donate to support children',
+      order_id,
       handler: function (response: { razorpay_payment_id: string }) {
-        alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
-        // You can handle the success response here (e.g., send to your backend)
+        setThankYou(true);
       },
       prefill: {
-        name: 'Aadarana Donor',
-        email: 'test@example.com',
-        contact: '9999999999',
+        name: donorName,
+        email: donorEmail,
+        contact: donorPhone,
       },
       theme: {
         color: '#005FA1',
       },
     };
-
     const rzp = new (window as unknown as RazorpayWindow).Razorpay(options);
     rzp.open();
   };
@@ -172,6 +193,22 @@ export default function DonatePage() {
           <div className="flex flex-col items-center gap-4">
             <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-[#005FA1]" />
             <span className="text-[#005FA1] font-bold text-lg">Detecting your location...</span>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (thankYou) {
+    return (
+      <div className="overflow-x-hidden min-h-screen flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex flex-col items-center justify-center py-20">
+          <div className="bg-white rounded-3xl shadow-2xl p-10 max-w-lg w-full text-center">
+            <h2 className="text-3xl font-bold text-[#005FA1] mb-4">Thank You!</h2>
+            <p className="text-lg text-gray-700 mb-6">Your donation was successful. You are making a real difference in a child's life.</p>
+            <a href="/" className="inline-block bg-[#005FA1] text-white font-bold py-3 px-8 rounded-xl hover:bg-[#00395c] transition-colors text-lg">Back to Home</a>
           </div>
         </div>
         <Footer />
@@ -260,6 +297,48 @@ export default function DonatePage() {
                       }}
                       placeholder={`Enter amount in ${currencySymbol}`}
                       className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
+                    />
+                  </div>
+
+                  {/* Name */}
+                  <div>
+                    <label htmlFor="donorName" className="block text-lg font-semibold mb-3">Your Name</label>
+                    <input
+                      type="text"
+                      id="donorName"
+                      value={donorName}
+                      onChange={e => setDonorName(e.target.value)}
+                      placeholder="Enter your name"
+                      className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
+                      required
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label htmlFor="donorEmail" className="block text-lg font-semibold mb-3">Email</label>
+                    <input
+                      type="email"
+                      id="donorEmail"
+                      value={donorEmail}
+                      onChange={e => setDonorEmail(e.target.value)}
+                      placeholder="Enter your email"
+                      className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
+                      required
+                    />
+                  </div>
+
+                  {/* Phone */}
+                  <div>
+                    <label htmlFor="donorPhone" className="block text-lg font-semibold mb-3">Phone</label>
+                    <input
+                      type="tel"
+                      id="donorPhone"
+                      value={donorPhone}
+                      onChange={e => setDonorPhone(e.target.value)}
+                      placeholder="Enter your phone number"
+                      className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
+                      required
                     />
                   </div>
 
