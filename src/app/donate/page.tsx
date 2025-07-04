@@ -81,9 +81,7 @@ export default function DonatePage() {
   const [donationAmount, setDonationAmount] = useState("");
   const [selectedAmount, setSelectedAmount] = useState("");
   const [isIndian, setIsIndian] = useState(true);
-  const [donorName, setDonorName] = useState("");
-  const [donorEmail, setDonorEmail] = useState("");
-  const [donorPhone, setDonorPhone] = useState("");
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
   const [thankYou, setThankYou] = useState(false);
 
   useEffect(() => {
@@ -131,7 +129,7 @@ export default function DonatePage() {
       alert("Please enter a valid donation amount.");
       return;
     }
-    if (!donorName || !donorEmail || !donorPhone) {
+    if (!formData.name || !formData.email || !formData.phone) {
       alert("Please fill in your name, email, and phone.");
       return;
     }
@@ -162,9 +160,9 @@ export default function DonatePage() {
         setThankYou(true);
       },
       prefill: {
-        name: donorName,
-        email: donorEmail,
-        contact: donorPhone,
+        name: formData.name,
+        email: formData.email,
+        contact: formData.phone,
       },
       theme: {
         color: '#005FA1',
@@ -306,8 +304,8 @@ export default function DonatePage() {
                     <input
                       type="text"
                       id="donorName"
-                      value={donorName}
-                      onChange={e => setDonorName(e.target.value)}
+                      value={formData.name}
+                      onChange={e => setFormData(f => ({ ...f, name: e.target.value }))}
                       placeholder="Enter your name"
                       className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
                       required
@@ -320,8 +318,8 @@ export default function DonatePage() {
                     <input
                       type="email"
                       id="donorEmail"
-                      value={donorEmail}
-                      onChange={e => setDonorEmail(e.target.value)}
+                      value={formData.email}
+                      onChange={e => setFormData(f => ({ ...f, email: e.target.value }))}
                       placeholder="Enter your email"
                       className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
                       required
@@ -334,8 +332,8 @@ export default function DonatePage() {
                     <input
                       type="tel"
                       id="donorPhone"
-                      value={donorPhone}
-                      onChange={e => setDonorPhone(e.target.value)}
+                      value={formData.phone}
+                      onChange={e => setFormData(f => ({ ...f, phone: e.target.value }))}
                       placeholder="Enter your phone number"
                       className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
                       required

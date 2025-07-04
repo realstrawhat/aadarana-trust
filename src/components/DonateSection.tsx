@@ -47,6 +47,8 @@ export default function DonateSection() {
   const [amounts, setAmounts] = useState<number[]>([10, 25, 50, 100]);
   const [loading, setLoading] = useState(true);
   const [isIndian, setIsIndian] = useState(true);
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
+  const [thankYou, setThankYou] = useState(false);
 
   useEffect(() => {
     async function fetchCountry() {
@@ -79,37 +81,54 @@ export default function DonateSection() {
     fetchCountry();
   }, []);
 
-  const handleDonateClick = () => {
+  const handleDonateClick = async () => {
     if (!isIndian) {
       redirectToInternationalDonate();
       return;
     }
-
     if (!selectedAmount || selectedAmount <= 0) {
       alert("Please select or enter a valid donation amount.");
       return;
     }
-
+    if (!formData.name || !formData.email || !formData.phone) {
+      alert("Please fill in your name, email, and phone.");
+      return;
+    }
+    // 1. Create order on backend
+    let order_id = "";
+    try {
+      const res = await fetch("/api/razorpay-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: selectedAmount * 100, currency: "INR" }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Order creation failed");
+      order_id = data.order_id;
+    } catch (err) {
+      alert("Failed to initiate payment. Please try again.");
+      return;
+    }
+    // 2. Launch Razorpay checkout with real user data and order_id
     const options: RazorpayOptions = {
       key: 'rzp_live_sF65PhDjCbaFNh',
-      amount: selectedAmount * 100, // amount in the smallest currency unit
+      amount: selectedAmount * 100,
       currency: 'INR',
       name: 'Aadarana Trust',
       description: 'Donate to support children',
+      order_id,
       handler: function (response: { razorpay_payment_id: string }) {
-        alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
-        // You can handle the success response here
+        setThankYou(true);
       },
       prefill: {
-        name: 'Aadarana Donor',
-        email: 'test@example.com',
-        contact: '9999999999',
+        name: formData.name,
+        email: formData.email,
+        contact: formData.phone,
       },
       theme: {
         color: '#005FA1',
       },
     };
-
     const rzp = new (window as unknown as RazorpayWindow).Razorpay(options);
     rzp.open();
   };
@@ -120,6 +139,17 @@ export default function DonateSection() {
         <div className="flex flex-col items-center gap-4">
           <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-[#005FA1]" />
           <span className="text-[#005FA1] font-bold text-lg">Detecting your location...</span>
+        </div>
+      </section>
+    );
+  }
+
+  if (thankYou) {
+    return (
+      <section className="w-full flex items-center justify-center py-20 min-h-[400px]">
+        <div className="flex flex-col items-center gap-4">
+          <h2 className="text-3xl font-bold text-[#005FA1] mb-4">Thank You!</h2>
+          <p className="text-lg text-gray-700 mb-6">Your donation was successful. You are making a real difference in a child's life.</p>
         </div>
       </section>
     );
@@ -154,6 +184,36 @@ export default function DonateSection() {
             className="w-full px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#005FA1]"
             onChange={e => setSelectedAmount(Number(e.target.value))}
             aria-label="Custom donation amount"
+          />
+          {/* Name */}
+          <input
+            type="text"
+            placeholder="Your Name"
+            className="w-full px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#005FA1]"
+            value={formData.name}
+            onChange={e => setFormData(f => ({ ...f, name: e.target.value }))}
+            aria-label="Your Name"
+            required
+          />
+          {/* Email */}
+          <input
+            type="email"
+            placeholder="Your Email"
+            className="w-full px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#005FA1]"
+            value={formData.email}
+            onChange={e => setFormData(f => ({ ...f, email: e.target.value }))}
+            aria-label="Your Email"
+            required
+          />
+          {/* Phone */}
+          <input
+            type="tel"
+            placeholder="Your Phone"
+            className="w-full px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#005FA1]"
+            value={formData.phone}
+            onChange={e => setFormData(f => ({ ...f, phone: e.target.value }))}
+            aria-label="Your Phone"
+            required
           />
           <button 
             className="mt-4 bg-[#005FA1] text-white font-bold py-2 rounded-lg hover:bg-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-[#005FA1]"
