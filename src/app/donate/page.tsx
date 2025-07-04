@@ -81,7 +81,6 @@ export default function DonatePage() {
   const [donationAmount, setDonationAmount] = useState("");
   const [selectedAmount, setSelectedAmount] = useState("");
   const [isIndian, setIsIndian] = useState(true);
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
   const [thankYou, setThankYou] = useState(false);
 
   useEffect(() => {
@@ -129,10 +128,6 @@ export default function DonatePage() {
       alert("Please enter a valid donation amount.");
       return;
     }
-    if (!formData.name || !formData.email || !formData.phone) {
-      alert("Please fill in your name, email, and phone.");
-      return;
-    }
     // 1. Create order on backend
     let order_id = "";
     try {
@@ -158,11 +153,6 @@ export default function DonatePage() {
       order_id,
       handler: function (response: { razorpay_payment_id: string }) {
         setThankYou(true);
-      },
-      prefill: {
-        name: formData.name,
-        email: formData.email,
-        contact: formData.phone,
       },
       theme: {
         color: '#005FA1',
@@ -295,48 +285,6 @@ export default function DonatePage() {
                       }}
                       placeholder={`Enter amount in ${currencySymbol}`}
                       className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
-                    />
-                  </div>
-
-                  {/* Name */}
-                  <div>
-                    <label htmlFor="donorName" className="block text-lg font-semibold mb-3">Your Name</label>
-                    <input
-                      type="text"
-                      id="donorName"
-                      value={formData.name}
-                      onChange={e => setFormData(f => ({ ...f, name: e.target.value }))}
-                      placeholder="Enter your name"
-                      className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
-                      required
-                    />
-                  </div>
-
-                  {/* Email */}
-                  <div>
-                    <label htmlFor="donorEmail" className="block text-lg font-semibold mb-3">Email</label>
-                    <input
-                      type="email"
-                      id="donorEmail"
-                      value={formData.email}
-                      onChange={e => setFormData(f => ({ ...f, email: e.target.value }))}
-                      placeholder="Enter your email"
-                      className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
-                      required
-                    />
-                  </div>
-
-                  {/* Phone */}
-                  <div>
-                    <label htmlFor="donorPhone" className="block text-lg font-semibold mb-3">Phone</label>
-                    <input
-                      type="tel"
-                      id="donorPhone"
-                      value={formData.phone}
-                      onChange={e => setFormData(f => ({ ...f, phone: e.target.value }))}
-                      placeholder="Enter your phone number"
-                      className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white"
-                      required
                     />
                   </div>
 
