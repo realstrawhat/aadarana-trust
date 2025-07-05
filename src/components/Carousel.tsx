@@ -69,10 +69,10 @@ export default function Carousel() {
                   <div className="absolute inset-0 bg-black/40 z-5"></div>
                   {/* Caption overlay */}
                   <div className="absolute inset-0 flex items-center justify-center z-10">
-                    <div className="bg-black/30 text-white rounded-2xl flex flex-col items-center justify-center text-center w-80 h-40 md:w-96 md:h-48 px-6 py-6">
-                      <span className="text-lg md:text-2xl font-bold mb-2">{slide.title}</span>
+                    <div className="bg-black/30 text-white rounded-2xl flex flex-col items-center justify-center text-center w-96 h-40 md:w-[500px] md:h-48 px-6 py-6">
+                      <span className="text-xl md:text-3xl font-bold mb-2">{slide.title}</span>
                       {slide.description && (
-                        <span className="text-sm md:text-lg font-medium opacity-90">{slide.description}</span>
+                        <span className="text-base md:text-xl font-medium opacity-90">{slide.description}</span>
                       )}
                     </div>
                   </div>

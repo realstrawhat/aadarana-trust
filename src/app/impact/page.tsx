@@ -60,7 +60,7 @@ export default function ImpactPage() {
   return (
     <div className="overflow-x-hidden">
       <Navbar />
-      <section className="relative w-full h-[50vh] md:h-[70vh] flex items-center justify-center bg-gray-900">
+      <section className="relative w-full h-[100vh] md:h-[120vh] flex items-center justify-center bg-gray-900">
         <Image
           src="/images/gallery/20250207_185638.jpg"
           alt="Background for impact hero section"
@@ -72,7 +72,7 @@ export default function ImpactPage() {
           style={{ objectPosition: 'center 30%' }}
         />
         <div className="absolute inset-0 bg-black/60 z-10" />
-        <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4">
+        <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4 mt-8">
           <h1 className="text-white text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
             Real Impact. Real Stories. Real Change.
           </h1>

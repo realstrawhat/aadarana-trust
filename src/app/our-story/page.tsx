@@ -16,7 +16,7 @@ export default function OurStoryPage() {
       <Navbar />
       <main className="flex-1 flex flex-col overflow-x-hidden max-w-full" style={{overflowX: 'hidden', maxWidth: '100vw', boxSizing: 'border-box'}}>
         {/* Hero Section */}
-        <section className="relative w-full min-h-[60vh] flex flex-col items-center justify-center overflow-hidden px-4 md:px-0 max-w-full" style={{overflowX: 'hidden', maxWidth: '100vw', boxSizing: 'border-box'}}>
+        <section className="relative w-full min-h-[100vh] flex flex-col items-center justify-center overflow-hidden px-4 md:px-0 max-w-full" style={{overflowX: 'hidden', maxWidth: '100vw', boxSizing: 'border-box'}}>
           <img
             src="/images/gallery/IMG_20240325_163654.jpg"
             alt="Background for our story hero section"
@@ -24,7 +24,7 @@ export default function OurStoryPage() {
             loading="eager"
           />
           <div className="absolute inset-0 bg-black/40 z-10" />
-          <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4 md:px-0 max-w-full">
+          <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4 md:px-0 max-w-full mt-8">
             <h1 className="text-white text-4xl md:text-6xl font-extrabold mb-8 drop-shadow-xl tracking-tight">
               All great movements start with a great story.<br className="hidden md:block" /> This is ours.
             </h1>

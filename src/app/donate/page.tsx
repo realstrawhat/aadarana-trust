@@ -213,7 +213,7 @@ export default function DonatePage() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative w-full h-[50vh] md:h-[70vh] flex items-center justify-center">
+      <section className="relative w-full h-[100vh] md:h-[120vh] flex items-center justify-center">
         <img
           src="/images/gallery/20240829_154159-2.jpg"
           alt="Background for donate hero section"
@@ -222,7 +222,7 @@ export default function DonatePage() {
           loading="eager"
         />
         <div className="absolute inset-0 bg-black/40 z-10" />
-        <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4">
+        <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4 mt-8">
           <h1 className="text-white text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
             Donate Today
           </h1>

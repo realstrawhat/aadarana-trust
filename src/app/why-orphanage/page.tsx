@@ -48,10 +48,10 @@ export default function WhyChildrenHomePage() {
       <Navbar />
       <main className="flex-1 flex flex-col">
         {/* Hero Section */}
-        <section className="relative w-full min-h-[70vh] flex flex-col items-center justify-center overflow-hidden bg-black">
+        <section className="relative w-full min-h-[100vh] flex flex-col items-center justify-center overflow-hidden bg-black">
           <Image src="/images/gallery/717.jpg" alt="Children" fill quality={80} loading="eager" priority sizes="100vw" className="object-cover object-top z-0" style={{ objectPosition: 'center 30%' }} />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 z-10" />
-          <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4">
+          <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4 mt-8">
             <h1 className="text-white text-5xl md:text-7xl font-extrabold mb-8 drop-shadow-xl tracking-tight">
               Childhood is <AnimatedText words={["Dignity", "Joyful", "Stability", "Learning", "Safety", "Progress"]} />
             </h1>
