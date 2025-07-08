@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import { useState, useEffect } from "react";
 import Script from "next/script";
 import { detectUserLocation, redirectToInternationalDonate } from "../../utils/locationUtils";
+import Image from 'next/image';
 
 interface RazorpayOptions {
   key: string;
@@ -214,12 +215,15 @@ export default function DonatePage() {
       
       {/* Hero Section */}
       <section className="relative w-full h-[100vh] md:h-[120vh] flex items-center justify-center">
-        <img
+        <Image
           src="/images/gallery/20240829_154159-2.jpg"
           alt="Background for donate hero section"
-          className="absolute inset-0 w-full h-full object-cover z-0"
+          fill
           style={{ objectPosition: 'center 30%' }}
+          className="absolute inset-0 w-full h-full object-cover z-0"
           loading="eager"
+          priority={true}
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/40 z-10" />
         <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4 mt-8">

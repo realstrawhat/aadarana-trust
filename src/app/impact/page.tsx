@@ -92,7 +92,8 @@ export default function ImpactPage() {
           alt="Background for impact hero section"
           fill
           quality={80}
-          priority
+          priority={true}
+          loading="eager"
           sizes="100vw"
           className="object-cover z-0"
           style={{ objectPosition: 'center 30%' }}

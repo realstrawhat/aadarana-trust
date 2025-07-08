@@ -44,7 +44,7 @@ function CustomChildrenHeroSection() {
 
   return (
     <section className="relative w-full min-h-[70vh] flex flex-col items-center justify-center overflow-hidden bg-black">
-      <Image src="/images/hero-bg.webp" alt="Children" fill quality={80} loading="eager" priority sizes="100vw" className="object-cover z-0" />
+      <Image src="/images/hero-bg.webp" alt="Children" fill quality={80} loading="eager" priority={true} sizes="100vw" className="object-cover z-0" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 z-10" />
       <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4">
         <div className="flex flex-row items-center justify-center w-full">
