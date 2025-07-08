@@ -6,6 +6,7 @@ import Link from "next/link";
 import AnimatedText from "../../components/AnimatedText";
 import { useState } from "react";
 import Carousel from '../../components/Carousel';
+import Head from 'next/head';
 
 const impactInfo = [
   {
@@ -45,6 +46,31 @@ export default function WhyChildrenHomePage() {
   const [open, setOpen] = useState<number | null>(null);
   return (
     <div className="bg-white min-h-screen flex flex-col overflow-x-hidden">
+      <Head>
+        <title>Why Orphanage? | Aadarana Trust</title>
+        <meta name="description" content="Learn why Aadarana Trust believes every child deserves more than survival—discover our mission and the need for safe, loving homes." />
+        <meta property="og:title" content="Why Orphanage? | Aadarana Trust" />
+        <meta property="og:description" content="Learn why Aadarana Trust believes every child deserves more than survival—discover our mission and the need for safe, loving homes." />
+        <meta property="og:image" content="https://aadaranatrust.org/images/gallery/717.jpg" />
+        <meta property="og:url" content="https://aadaranatrust.org/why-orphanage" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href="https://aadaranatrust.org/why-orphanage" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://aadaranatrust.org/"},
+            {"@type": "ListItem", "position": 2, "name": "Why Orphanage", "item": "https://aadaranatrust.org/why-orphanage"}
+          ]
+        }) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Why Orphanage?",
+          "url": "https://aadaranatrust.org/why-orphanage",
+          "description": "Learn why Aadarana Trust believes every child deserves more than survival—discover our mission and the need for safe, loving homes."
+        }) }} />
+      </Head>
       <Navbar />
       <main className="flex-1 flex flex-col">
         {/* Hero Section */}

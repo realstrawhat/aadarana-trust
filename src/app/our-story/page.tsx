@@ -2,6 +2,8 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import Image from 'next/image';
+import Head from 'next/head';
 
 // Global style to remove footer top margin/padding
 if (typeof window !== 'undefined') {
@@ -13,15 +15,45 @@ if (typeof window !== 'undefined') {
 export default function OurStoryPage() {
   return (
     <div className="bg-white min-h-screen flex flex-col overflow-x-hidden max-w-full" style={{overflowX: 'hidden', maxWidth: '100vw', boxSizing: 'border-box'}}>
+      <Head>
+        <title>Our Story | Aadarana Trust</title>
+        <meta name="description" content="Discover the inspiring journey of Aadarana Trust, from humble beginnings to a beacon of hope for vulnerable children in India." />
+        <meta property="og:title" content="Our Story | Aadarana Trust" />
+        <meta property="og:description" content="Discover the inspiring journey of Aadarana Trust, from humble beginnings to a beacon of hope for vulnerable children in India." />
+        <meta property="og:image" content="https://aadaranatrust.org/images/gallery/IMG_20240325_163654.jpg" />
+        <meta property="og:url" content="https://aadaranatrust.org/our-story" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href="https://aadaranatrust.org/our-story" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://aadaranatrust.org/"},
+            {"@type": "ListItem", "position": 2, "name": "Our Story", "item": "https://aadaranatrust.org/our-story"}
+          ]
+        }) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Our Story",
+          "url": "https://aadaranatrust.org/our-story",
+          "description": "Discover the inspiring journey of Aadarana Trust, from humble beginnings to a beacon of hope for vulnerable children in India."
+        }) }} />
+      </Head>
       <Navbar />
       <main className="flex-1 flex flex-col overflow-x-hidden max-w-full" style={{overflowX: 'hidden', maxWidth: '100vw', boxSizing: 'border-box'}}>
         {/* Hero Section */}
         <section className="relative w-full min-h-[100vh] flex flex-col items-center justify-center overflow-hidden px-4 md:px-0 max-w-full" style={{overflowX: 'hidden', maxWidth: '100vw', boxSizing: 'border-box'}}>
-          <img
+          <Image
             src="/images/gallery/IMG_20240325_163654.jpg"
             alt="Background for our story hero section"
-            className="absolute inset-0 w-full h-full object-cover z-0"
+            fill
+            style={{objectFit: 'cover'}}
+            quality={80}
             loading="eager"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={true}
+            className="absolute inset-0 w-full h-full object-cover z-0"
           />
           <div className="absolute inset-0 bg-black/40 z-10" />
           <div className="relative z-20 flex flex-col items-center justify-center h-full w-full text-center px-4 md:px-0 max-w-full mt-8">
@@ -263,7 +295,17 @@ export default function OurStoryPage() {
             {/* Team Member 1 */}
             <div className="flex flex-col items-center w-full min-w-0">
               <div className="w-52 h-52 md:w-72 md:h-72 bg-gray-200 shadow-lg overflow-hidden mb-4 flex items-center justify-center">
-                <img src="/images/gallery/kiran.jpg" alt="Nandigama Kiran" className="object-cover w-full h-full" style={{aspectRatio: '1/1'}} onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}} />
+                <Image
+                  src="/images/gallery/kiran.jpg"
+                  alt="Nandigama Kiran"
+                  width={288}
+                  height={288}
+                  quality={80}
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover w-full h-full"
+                  onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}}
+                />
               </div>
               <div className="text-left w-52 md:w-72">
                 <div className="font-bold text-lg md:text-xl text-[#005FA1] whitespace-nowrap">Nandigama Kiran</div>
@@ -273,7 +315,17 @@ export default function OurStoryPage() {
             {/* Team Member 2 */}
             <div className="flex flex-col items-center w-full min-w-0">
               <div className="w-52 h-52 md:w-72 md:h-72 bg-gray-200 shadow-lg overflow-hidden mb-4 flex items-center justify-center">
-                <img src="/images/gallery/siresh.jpg" alt="Sireesha" className="object-cover w-full h-full" style={{aspectRatio: '1/1'}} onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}} />
+                <Image
+                  src="/images/gallery/siresh.jpg"
+                  alt="Sireesha"
+                  width={288}
+                  height={288}
+                  quality={80}
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover w-full h-full"
+                  onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}}
+                />
               </div>
               <div className="text-left w-52 md:w-72">
                 <div className="font-bold text-lg md:text-xl text-[#005FA1] whitespace-nowrap">Sireesha</div>
@@ -283,7 +335,17 @@ export default function OurStoryPage() {
             {/* Team Member 3 */}
             <div className="flex flex-col items-center w-full min-w-0">
               <div className="w-52 h-52 md:w-72 md:h-72 bg-gray-200 shadow-lg overflow-hidden mb-4 flex items-center justify-center">
-                <img src="/images/gallery/madhu.jpg" alt="Madhu" className="object-cover w-full h-full" style={{aspectRatio: '1/1'}} onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}} />
+                <Image
+                  src="/images/gallery/madhu.jpg"
+                  alt="Madhu"
+                  width={288}
+                  height={288}
+                  quality={80}
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover w-full h-full"
+                  onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}}
+                />
               </div>
               <div className="text-left w-52 md:w-72">
                 <div className="font-bold text-lg md:text-xl text-[#005FA1] whitespace-nowrap">Madhu</div>
@@ -293,7 +355,17 @@ export default function OurStoryPage() {
             {/* Team Member 4 */}
             <div className="flex flex-col items-center w-full min-w-0">
               <div className="w-52 h-52 md:w-72 md:h-72 bg-gray-200 shadow-lg overflow-hidden mb-4 flex items-center justify-center">
-                <img src="/images/gallery/murali-1.jpg" alt="Murali" className="object-cover w-full h-full" style={{aspectRatio: '1/1'}} onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}} />
+                <Image
+                  src="/images/gallery/murali-1.jpg"
+                  alt="Murali"
+                  width={288}
+                  height={288}
+                  quality={80}
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover w-full h-full"
+                  onError={e => {e.currentTarget.src = 'https://placehold.co/300x300?text=Photo'}}
+                />
               </div>
               <div className="text-left w-52 md:w-72">
                 <div className="font-bold text-lg md:text-xl text-[#005FA1] whitespace-nowrap">Murali</div>
@@ -304,12 +376,15 @@ export default function OurStoryPage() {
         </section>
         {/* Quote Section */}
         <section className="relative w-full py-16 md:py-16 flex items-center justify-center bg-gray-900 min-h-[400px] md:min-h-[520px]">
-          <img
+          <Image
             src="/images/gallery/IMG_20240401_181608-1.jpg"
             alt="Background for quote section"
-            className="object-cover w-full h-full absolute inset-0"
-            style={{ objectPosition: 'center 30%' }}
+            fill
+            style={{objectFit: 'cover', objectPosition: 'center 30%'}}
+            quality={80}
             loading="lazy"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover w-full h-full absolute inset-0"
           />
           <div className="absolute inset-0 bg-black/60 z-10" aria-hidden="true" />
           <blockquote className="relative z-20 max-w-3xl mx-auto text-center text-white font-semibold italic px-4 md:px-12 py-0 leading-relaxed md:leading-snug" style={{marginBottom: 0, paddingBottom: 0}}>

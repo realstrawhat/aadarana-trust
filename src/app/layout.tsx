@@ -75,6 +75,46 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Aadarana Trust",
+              "url": "https://aadaranatrust.org",
+              "logo": "https://aadaranatrust.org/images/hero/Aadarana Logo 2025 (1).webp",
+              "contactPoint": [{
+                "@type": "ContactPoint",
+                "email": "info@aadaranatrust.org",
+                "contactType": "Customer Support",
+                "areaServed": "IN",
+                "availableLanguage": ["English"]
+              }],
+              "sameAs": [
+                "https://www.facebook.com/aadaranatrust/"
+              ]
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "url": "https://aadaranatrust.org",
+              "name": "Aadarana Trust",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://aadaranatrust.org/?s={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
+      </head>
       <body 
         className={`${geist.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning={true}

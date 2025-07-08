@@ -6,6 +6,7 @@ import QuoteSection from '../../components/QuoteSection';
 import Footer from '../../components/Footer';
 import Image from 'next/image';
 import Link from 'next/link';
+import Head from 'next/head';
 
 const heroWords = [
   "Dignity",
@@ -85,6 +86,31 @@ function CustomChildrenHeroSection() {
 export default function ChildrenHomePage() {
   return (
     <main className="bg-white w-full min-h-screen flex flex-col">
+      <Head>
+        <title>Children's Home | Aadarana Trust</title>
+        <meta name="description" content="Explore how Aadarana Trust provides a safe, nurturing home for children—empowering them with education, care, and hope for a brighter future." />
+        <meta property="og:title" content="Children's Home | Aadarana Trust" />
+        <meta property="og:description" content="Explore how Aadarana Trust provides a safe, nurturing home for children—empowering them with education, care, and hope for a brighter future." />
+        <meta property="og:image" content="https://aadaranatrust.org/images/hero-bg.webp" />
+        <meta property="og:url" content="https://aadaranatrust.org/children-home" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href="https://aadaranatrust.org/children-home" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://aadaranatrust.org/"},
+            {"@type": "ListItem", "position": 2, "name": "Children's Home", "item": "https://aadaranatrust.org/children-home"}
+          ]
+        }) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Children's Home",
+          "url": "https://aadaranatrust.org/children-home",
+          "description": "Explore how Aadarana Trust provides a safe, nurturing home for children—empowering them with education, care, and hope for a brighter future."
+        }) }} />
+      </Head>
       <CustomChildrenHeroSection />
       <WhySection />
       {/* CarouselSection removed. Leave space for future carousel. */}

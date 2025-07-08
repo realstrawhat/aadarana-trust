@@ -3,6 +3,7 @@
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Image from "next/image";
+import Head from 'next/head';
 
 const stats = [
   {
@@ -59,6 +60,31 @@ const testimonials = [
 export default function ImpactPage() {
   return (
     <div className="overflow-x-hidden">
+      <Head>
+        <title>Our Impact | Aadarana Trust</title>
+        <meta name="description" content="See the real impact Aadarana Trust has made in the lives of children—stories of hope, change, and empowerment." />
+        <meta property="og:title" content="Our Impact | Aadarana Trust" />
+        <meta property="og:description" content="See the real impact Aadarana Trust has made in the lives of children—stories of hope, change, and empowerment." />
+        <meta property="og:image" content="https://aadaranatrust.org/images/gallery/20250207_185638.jpg" />
+        <meta property="og:url" content="https://aadaranatrust.org/impact" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href="https://aadaranatrust.org/impact" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://aadaranatrust.org/"},
+            {"@type": "ListItem", "position": 2, "name": "Impact", "item": "https://aadaranatrust.org/impact"}
+          ]
+        }) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Our Impact",
+          "url": "https://aadaranatrust.org/impact",
+          "description": "See the real impact Aadarana Trust has made in the lives of children—stories of hope, change, and empowerment."
+        }) }} />
+      </Head>
       <Navbar />
       <section className="relative w-full h-[100vh] md:h-[120vh] flex items-center justify-center bg-gray-900">
         <Image
