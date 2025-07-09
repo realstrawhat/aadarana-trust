@@ -47,6 +47,15 @@ export default function DonateSection() {
   const [amounts, setAmounts] = useState<number[]>([10, 25, 50, 100]);
   const [loading, setLoading] = useState(true);
   const [isIndian, setIsIndian] = useState(true);
+  const [razorpayLoaded, setRazorpayLoaded] = useState(
+    typeof window !== 'undefined' && !!window.Razorpay
+  );
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.Razorpay) {
+      setRazorpayLoaded(true);
+    }
+  }, []);
 
   useEffect(() => {
     async function fetchCountry() {
@@ -80,11 +89,14 @@ export default function DonateSection() {
   }, []);
 
   const handleDonateClick = async () => {
+    if (!razorpayLoaded) {
+      alert("Payment system is still loading. Please wait a moment and try again.");
+      return;
+    }
     if (!isIndian) {
       redirectToInternationalDonate();
       return;
     }
-
     if (!selectedAmount || selectedAmount <= 0) {
       alert("Please select or enter a valid donation amount.");
       return;
@@ -143,6 +155,7 @@ export default function DonateSection() {
       <Script
         id="razorpay-checkout-js-donatesection"
         src="https://checkout.razorpay.com/v1/checkout.js"
+        onLoad={() => setRazorpayLoaded(true)}
       />
       <section className="w-full flex flex-col md:flex-row items-center justify-center gap-12 py-20 bg-gray-100">
         {/* Donate Box */}

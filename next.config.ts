@@ -11,7 +11,16 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; img-src 'self' data: https://aadaranatrust.org; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+            value: `
+              default-src 'self';
+              script-src 'self' 'unsafe-inline' https://checkout.razorpay.com;
+              style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+              style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com;
+              font-src 'self' https://fonts.gstatic.com;
+              connect-src 'self' https://ipapi.co https://lumberjack.razorpay.com;
+              img-src 'self' data: blob:;
+              frame-src https://checkout.razorpay.com https://api.razorpay.com;
+            `.replace(/\s{2,}/g, ' ').trim()
           },
           {
             key: 'X-Content-Type-Options',

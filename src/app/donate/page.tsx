@@ -83,6 +83,15 @@ export default function DonatePage() {
   const [selectedAmount, setSelectedAmount] = useState("");
   const [isIndian, setIsIndian] = useState(true);
   const [thankYou, setThankYou] = useState(false);
+  const [razorpayLoaded, setRazorpayLoaded] = useState(
+    typeof window !== 'undefined' && !!window.Razorpay
+  );
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.Razorpay) {
+      setRazorpayLoaded(true);
+    }
+  }, []);
 
   useEffect(() => {
     async function fetchCountry() {
@@ -120,6 +129,10 @@ export default function DonatePage() {
   }, []);
 
   const handleDonate = async () => {
+    if (!razorpayLoaded) {
+      alert("Payment system is still loading. Please wait a moment and try again.");
+      return;
+    }
     if (!isIndian) {
       redirectToInternationalDonate();
       return;
@@ -210,6 +223,7 @@ export default function DonatePage() {
       <Script
         id="razorpay-checkout-js"
         src="https://checkout.razorpay.com/v1/checkout.js"
+        onLoad={() => setRazorpayLoaded(true)}
       />
       <Navbar />
       
