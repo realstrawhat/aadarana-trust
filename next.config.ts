@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
               font-src 'self' https://fonts.gstatic.com;
               connect-src 'self' https://ipapi.co https://lumberjack.razorpay.com;
               img-src 'self' data: blob:;
-              frame-src https://checkout.razorpay.com https://api.razorpay.com;
+              frame-src https://checkout.razorpay.com https://api.razorpay.com https://www.google.com https://maps.google.com;
             `.replace(/\s{2,}/g, ' ').trim()
           },
           {
